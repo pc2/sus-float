@@ -1,0 +1,7 @@
+extern module MEMORY_M20K #(int WIDTH, int DEPTH_LOG2, bool FORCE_TO_ZERO) {
+  domain clk
+  
+  interface write: bool writeEnable, int writeAddr, bool[WIDTH] dataIn
+  
+  interface read: bool readEnable, int readAddr -> bool[WIDTH] dataOut, bool eccStatus
+}

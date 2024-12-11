@@ -1,0 +1,7 @@
+Running: xsim.dir/SimpleVectorMultiply_tb_behav/xsimk.exe -simmode gui -wdb SimpleVectorMultiply_tb_behav.wdb -simrunnum 0 -socket 53390
+Design successfully loaded
+Design Loading Memory Usage: 9492 KB (Peak: 9492 KB)
+Design Loading CPU Usage: 109 ms
+Simulation completed
+Simulation Memory Usage: 10268 KB (Peak: 10268 KB)
+Simulation CPU Usage: 124 ms

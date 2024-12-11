@@ -1,0 +1,4 @@
+extern module fp_add {
+    interface fp_add: bool[32] s_axis_a_tdata'0, bool[32] s_axis_b_tdata'0 -> bool[32] m_axis_result_tdata'12
+
+}

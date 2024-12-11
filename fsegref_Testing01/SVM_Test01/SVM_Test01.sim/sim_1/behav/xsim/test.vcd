@@ -1,0 +1,148 @@
+$date
+   Tue Dec 10 12:50:29 2024
+$end
+
+$version
+  2024.1
+  $dumpfile ("test.vcd") 
+$end
+
+$timescale
+  1ps
+$end
+
+$scope module SimpleVectorMultiply_tb $end
+$var reg 1 ! clk $end
+$var reg 32 " A1 [31:0] $end
+$var reg 32 # A2 [31:0] $end
+$var reg 32 $ B1 [31:0] $end
+$var reg 32 % B2 [31:0] $end
+$var reg 32 & Result11 [31:0] $end
+$var reg 32 ' Result12 [31:0] $end
+$var reg 32 ( Result21 [31:0] $end
+$var reg 32 ) Result22 [31:0] $end
+$scope module svm $end
+$var wire 1 * clk $end
+$var wire 32 + A1 [31:0] $end
+$var wire 32 , A2 [31:0] $end
+$var wire 32 - B1 [31:0] $end
+$var wire 32 . B2 [31:0] $end
+$var reg 32 & Result11 [31:0] $end
+$var reg 32 ' Result12 [31:0] $end
+$var reg 32 ( Result21 [31:0] $end
+$var reg 32 ) Result22 [31:0] $end
+$var wire 32 / _1 [31:0] $end
+$var wire 32 0 _2 [31:0] $end
+$var wire 32 1 _3 [31:0] $end
+$var wire 32 2 _4 [31:0] $end
+$var reg 32 3 xilinx_isim_temp_3_ln12_blkAssignCaching [31:0] $end
+$var reg 32 4 xilinx_isim_temp_2_ln11_blkAssignCaching [31:0] $end
+$var reg 32 5 xilinx_isim_temp_1_ln10_blkAssignCaching [31:0] $end
+$var reg 32 6 xilinx_isim_temp_0_ln9_blkAssignCaching [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+
+#0
+$dumpvars
+0!
+b0 "
+b0 #
+b0 $
+b0 %
+b0 &
+b0 '
+b0 (
+b0 )
+0*
+b0 +
+b0 ,
+b0 -
+b0 .
+b0 /
+b0 0
+b0 1
+b0 2
+b0 3
+b0 4
+b0 5
+b0 6
+$end
+
+#5000
+1!
+1*
+
+#10000
+0!
+0*
+
+#15000
+1!
+1*
+
+#20000
+0!
+b11 "
+b100 #
+b101 $
+b110 %
+b1111 &
+b10100 '
+b10010 (
+b11000 )
+0*
+b11 +
+b100 ,
+b101 -
+b110 .
+b1111 /
+b10100 0
+b10010 1
+b11000 2
+b11000 3
+b10010 4
+b10100 5
+b1111 6
+
+#25000
+1!
+1*
+
+#30000
+0!
+0*
+
+#35000
+1!
+1*
+
+#40000
+0!
+b110 "
+b101 #
+b100 $
+b11 %
+b11000 &
+b1111 )
+0*
+b110 +
+b101 ,
+b100 -
+b11 .
+b11000 /
+b1111 2
+b1111 3
+b11000 6
+
+#45000
+1!
+1*
+
+#50000
+0!
+0*
+
+#55000
+1!
+1*

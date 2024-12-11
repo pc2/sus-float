@@ -1,0 +1,1 @@
+sus_compiler --standalone fp_add fp_add.sus
