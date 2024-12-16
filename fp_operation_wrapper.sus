@@ -1,0 +1,32 @@
+extern module fp_add_sub {
+    domain clk
+
+    interface input: bool[32] s_axis_a_tdata'0, bool s_axis_a_tready'0, bool s_axis_a_tvalid'0,
+    bool [32] s_axis_b_tdata'0, bool s_axis_b_tready'0, bool s_axis_b_tvalid'0, bool[8] s_axis_operation_tdata'0,
+    bool s_axis_operation_tready'0, bool s_axis_operation_tvalid'0
+
+    interface output: bool[32] m_axis_result_tdata'12, bool m_axis_result_tvalid'12, bool m_axis_result_tready'12
+}
+
+extern module fp_mult{
+    domain clk
+
+    interface input: bool[32] s_axis_a_tdata'0, bool s_axis_a_tready'0, bool s_axis_a_tvalid'0,
+    bool [32] s_axis_b_tdata'0, bool s_axis_b_tready'0, bool s_axis_b_tvalid'0
+
+    interface output: bool[32] m_axis_result_tdata'9, bool m_axis_result_tvalid'9, bool m_axis_result_tready'9
+}
+
+extern module fp_div {
+    
+    domain clk
+
+    interface input: bool[32] s_axis_a_tdata'0, bool s_axis_a_tready'0, bool s_axis_a_tvalid'0,
+    bool [32] s_axis_b_tdata'0, bool s_axis_b_tready'0, bool s_axis_b_tvalid'0
+
+    interface output: bool[32] m_axis_result_tdata'29, bool m_axis_result_tvalid'29, bool m_axis_result_tready'29
+}
+
+
+
+
