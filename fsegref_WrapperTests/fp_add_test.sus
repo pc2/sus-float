@@ -1,0 +1,14 @@
+module fp_add_test {
+
+    interface fp_add_test: bool[32] A1'0, bool[32] B1'0-> bool[32] Result'12
+    
+    floating_point_0 fpa
+
+    Result = fpa(true, true , A1, B1)
+}
+
+extern module floating_point_0 {
+    domain clk 
+    
+    interface floating_point_0: bool s_axis_a_tvalid'0, bool s_axis_b_tvalid'0,  bool[32] s_axis_a_tdata'0, bool[32] s_axis_b_tdata'0 -> bool[32] m_axis_result_tdata'12
+}

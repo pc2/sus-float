@@ -13,8 +13,8 @@ module SimpleVectorMultiply(
 );
 
 wire [31:0] _1 = A1 * B1;
-wire [31:0] _2 = A2 * B1;
-wire [31:0] _3 = A1 * B2;
+wire [31:0] _2 = A1 * B2;
+wire [31:0] _3 = A2 * B1;
 wire [31:0] _4 = A2 * B2;
 always_comb begin
 	// Combinatorial wires are not defined when not valid. This is just so that the synthesys tool doesn't generate latches

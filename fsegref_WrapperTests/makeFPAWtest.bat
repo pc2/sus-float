@@ -1,0 +1,1 @@
+sus_compiler --standalone fp_add_test fp_add_test.sus

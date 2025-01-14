@@ -3,8 +3,15 @@
 // Provided externally
 // module fp_add(
 // 	input clk,
+// 	input wire  aclk,
+// 	input wire  s_axis_a_tvalid,
+// 	input wire  s_axis_b_tvalid,
 // 	input wire [31:0] s_axis_a_tdata,
 // 	input wire [31:0] s_axis_b_tdata,
-// 	output /*mux_wire*/ logic [31:0] m_axis_result_tdata
+// 	input wire  m_axis_result_tready,
+// 	output /*mux_wire*/ logic  _axis_a_tready,
+// 	output /*mux_wire*/ logic  _axis_b_tready,
+// 	output /*mux_wire*/ logic [31:0] m_axis_result_tdata,
+// 	output /*mux_wire*/ logic  m_axis_result_tvalid
 // );
 

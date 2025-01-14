@@ -1,0 +1,4 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/fabis/OneDrive/Dokumente/GitHub/sus-float/fsegref_Testing01/verilog_output/SimpleVectorMultiply_standalone.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module SimpleVectorMultiply
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/fabis/OneDrive/Dokumente/GitHub/sus-float/fsegref_Testing01/SimpleVectorMultiply_tb.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module SimpleVectorMultiply_tb
