@@ -1,11 +1,11 @@
 module FpAddTestBench;
     
-    reg clk;
+    reg aclk;
     
     
 initial begin
-    clk = 0;
-    forever #5 clk = ~clk;  // 100 MHz clock
+    aclk = 0;
+    forever #10 aclk = ~aclk;  // 100 MHz clock
 end
     
     // Inputs to the module under test
@@ -16,22 +16,27 @@ end
 
     // Instantiate the module under test
     fp_add_test uut (
-        .clk(clk),
+        .aclk(aclk),
         .A1(a),
         .B1(b),
         .Result(result)
     );
 
     initial begin
+        #220
         // Test case 1: 1.5 + 2.5 = 4.0
         a = 32'h3fc00000;
         b = 32'h40200000;
-        #10;
+        #220;
 
         // Test case 2: -1.5 + 1.5 = 0.0
-        a = 32'hfc00000;
+        a = 32'hbfc00000;
         b = 32'h3fc00000;
-        #1000;
+        #220;
+
+        a = 32'h3fc00000;
+        b = 32'h3fc00000;
+        #220;
 
         $finish;
     end

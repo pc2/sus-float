@@ -1,4 +1,0 @@
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/fabis/OneDrive/Dokumente/GitHub/sus-float/fsegref_WrapperTests/fp_add.sv" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module fp_add
-INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/fabis/OneDrive/Dokumente/GitHub/sus-float/fsegref_WrapperTests/FPWrapperTest01/FPWrapperTest01.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module glbl

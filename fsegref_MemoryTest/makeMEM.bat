@@ -1,1 +1,0 @@
-sus_compiler --standalone MEMORY_M20K MEMORY_M20K.sus
