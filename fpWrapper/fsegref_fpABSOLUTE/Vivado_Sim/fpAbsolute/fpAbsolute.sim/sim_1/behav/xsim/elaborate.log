@@ -1,0 +1,49 @@
+Vivado Simulator v2024.2.0
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: D:/Xilinx/Vivado/2024.2/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L xbip_utils_v3_0_14 -L axi_utils_v2_0_10 -L xbip_pipe_v3_0_10 -L xbip_dsp48_wrapper_v3_0_6 -L mult_gen_v12_0_22 -L floating_point_v7_1_19 -L uvm -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot fpAbsolute_tb_behav xil_defaultlib.fpAbsolute_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-5021] port 's_axis_a_tvalid' is not connected on this instance [C:/Users/Nutzer/OneDrive/Dokumente/GitHub/sus-float/fpWrapper/fsegref_fpABSOLUTE/verilog_output/fpAbsolute_standalone.sv:11]
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4100] "C:/Users/Nutzer/Desktop/fpAbsolute/fpAbsolute.gen/sources_1/ip/floating_point_0/sim/floating_point_0.v" Line 55. Module floating_point_0 has a timescale but at least one module in design doesn't have timescale.
+WARNING: [XSIM 43-4100] "C:/Users/Nutzer/Desktop/fpAbsolute/fpAbsolute.gen/sources_1/ip/floating_point_0/sim/floating_point_0.v" Line 55. Module floating_point_0 has a timescale but at least one module in design doesn't have timescale.
+WARNING: [XSIM 43-4100] "/wrk/ci/prod/2024.2/sw/continuous/3059/packages/customer/vivado/data/ip/xilinx/floating_point_v7_1/hdl/floating_point_v7_1_rfs.v" Line 1. Module floating_point_v7_1_19_dummy_verilog_module has a timescale but at least one module in design doesn't have timescale.
+WARNING: [XSIM 43-4100] "/proj/xbuilds/SWIP/2024.2_1107_2045/installs/lin64/Vivado/2024.2/data/verilog/src/unisims/LUT1.v" Line 27. Module LUT1 has a timescale but at least one module in design doesn't have timescale.
+WARNING: [XSIM 43-4100] "/proj/xbuilds/SWIP/2024.2_1107_2045/installs/lin64/Vivado/2024.2/data/verilog/src/unisims/LUT1.v" Line 62. Module x_lut1_mux2 has a timescale but at least one module in design doesn't have timescale.
+WARNING: [XSIM 43-4100] "C:/Users/Nutzer/Desktop/fpAbsolute/fpAbsolute.sim/sim_1/behav/xsim/glbl.v" Line 6. Module glbl has a timescale but at least one module in design doesn't have timescale.
+WARNING: [XSIM 43-4100] "C:/Users/Nutzer/Desktop/fpAbsolute/fpAbsolute.sim/sim_1/behav/xsim/glbl.v" Line 6. Module glbl has a timescale but at least one module in design doesn't have timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package floating_point_v7_1_19.floating_point_v7_1_19_viv_comp
+Compiling package ieee.numeric_std
+Compiling package xbip_utils_v3_0_14.xbip_utils_v3_0_14_pkg
+Compiling package axi_utils_v2_0_10.axi_utils_v2_0_10_pkg
+Compiling package floating_point_v7_1_19.floating_point_v7_1_19_consts
+Compiling package ieee.math_real
+Compiling package floating_point_v7_1_19.floating_point_v7_1_19_exp_table...
+Compiling package mult_gen_v12_0_22.mult_gen_v12_0_22_pkg
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_signed
+Compiling package floating_point_v7_1_19.floating_point_v7_1_19_pkg
+Compiling package floating_point_v7_1_19.flt_utils
+Compiling package xbip_pipe_v3_0_10.xbip_pipe_v3_0_10_viv_comp
+Compiling module unisims_ver.x_lut1_mux2
+Compiling module unisims_ver.LUT1
+Compiling architecture synth of entity xbip_pipe_v3_0_10.xbip_pipe_v3_0_10_viv [\xbip_pipe_v3_0_10_viv(c_has_ce=...]
+Compiling architecture synth of entity xbip_pipe_v3_0_10.xbip_pipe_v3_0_10_viv [\xbip_pipe_v3_0_10_viv(c_has_ce=...]
+Compiling architecture rtl of entity floating_point_v7_1_19.delay [\delay(width=32,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_10.xbip_pipe_v3_0_10_viv [\xbip_pipe_v3_0_10_viv(c_has_ce=...]
+Compiling architecture rtl of entity floating_point_v7_1_19.delay [\delay(length=0)\]
+Compiling architecture xilinx of entity floating_point_v7_1_19.floating_point_v7_1_19_viv [\floating_point_v7_1_19_viv(c_xd...]
+Compiling architecture xilinx of entity floating_point_v7_1_19.floating_point_v7_1_19 [\floating_point_v7_1_19(c_xdevic...]
+Compiling module xil_defaultlib.floating_point_0
+Compiling module xil_defaultlib.fpAbsolute
+Compiling module xil_defaultlib.fpAbsolute_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot fpAbsolute_tb_behav

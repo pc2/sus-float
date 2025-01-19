@@ -1,0 +1,7 @@
+Running: xsim.dir/fpAbsolute_behav/xsimk.exe -simmode gui -wdb fpAbsolute_behav.wdb -simrunnum 0 -socket 51186
+Design successfully loaded
+Design Loading Memory Usage: 26624 KB (Peak: 26624 KB)
+Design Loading CPU Usage: 718 ms
+Simulation completed
+Simulation Memory Usage: 27400 KB (Peak: 27400 KB)
+Simulation CPU Usage: 734 ms
