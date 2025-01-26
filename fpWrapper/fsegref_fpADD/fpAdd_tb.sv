@@ -23,20 +23,20 @@ end
     );
 
     initial begin
-        #220
+        #250
         // Test case 1: 1.5 + 2.5 = 4.0
         value1 = 32'h3fc00000;
         value2 = 32'h40200000;
-        #220;
+        #250;
 
         // Test case 2: -1.5 + 1.5 = 0.0
         value1 = 32'hbfc00000;
         value2 = 32'h3fc00000;
-        #220;
+        #250;
 
         value1 = 32'h3fc00000;
         value2 = 32'h3fc00000;
-        #220;
+        #250;
 
         $finish;
     end

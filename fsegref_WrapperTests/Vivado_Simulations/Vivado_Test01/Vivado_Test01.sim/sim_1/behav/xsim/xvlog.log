@@ -1,4 +1,0 @@
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/fabis/OneDrive/Dokumente/GitHub/sus-float/fsegref_WrapperTests/verilog_output/fp_add_test_standalone.sv" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module fp_add_test
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/fabis/OneDrive/Dokumente/GitHub/sus-float/fsegref_WrapperTests/FpAddTestBench.sv" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module FpAddTestBench

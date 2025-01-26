@@ -1,8 +1,0 @@
-INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Nutzer/OneDrive/Dokumente/GitHub/sus-float/fsegref_WrapperTests/fpAddWrapperTest01/fpAddWrapperTest01.gen/sources_1/ip/floating_point_0/sim/floating_point_0.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module floating_point_0
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/Nutzer/OneDrive/Dokumente/GitHub/sus-float/fsegref_WrapperTests/verilog_output/fp_add_test_standalone.sv" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module fp_add_test
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/Nutzer/OneDrive/Dokumente/GitHub/sus-float/fsegref_WrapperTests/FpAddTestBench.sv" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module FpAddTestBench
-INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Nutzer/OneDrive/Dokumente/GitHub/sus-float/fsegref_WrapperTests/fpAddWrapperTest01/fpAddWrapperTest01.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module glbl

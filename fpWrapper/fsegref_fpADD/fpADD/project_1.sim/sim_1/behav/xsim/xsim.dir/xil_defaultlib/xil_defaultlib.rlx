@@ -1,9 +1,0 @@
-0.7
-2020.2
-Nov  8 2024
-22:36:57
-C:/Users/Nutzer/Desktop/VIVADO/fpADD/project_1.gen/sources_1/ip/floating_point_0_1/sim/floating_point_0.v,1737208405,verilog,,,,floating_point_0,,uvm,,,,,,
-C:/Users/Nutzer/Desktop/VIVADO/fpADD/project_1.sim/sim_1/behav/xsim/glbl.v,1724786425,verilog,,,,glbl,,uvm,,,,,,
-C:/Users/Nutzer/OneDrive/Dokumente/GitHub/sus-float/fpWrapper/fsegref_fpADD/fpAdd_tb.sv,1737293585,systemVerilog,,,,fpAdd_tb,,uvm,,,,,,
-C:/Users/Nutzer/OneDrive/Dokumente/GitHub/sus-float/fpWrapper/fsegref_fpADD/verilog_output/fpAdd_standalone.sv,1737293303,systemVerilog,,C:/Users/Nutzer/OneDrive/Dokumente/GitHub/sus-float/fpWrapper/fsegref_fpADD/fpAdd_tb.sv,,fpAdd,,uvm,,,,,,
-C:/Users/Nutzer/OneDrive/Dokumente/GitHub/sus-float/fsegref_WrapperTests/verilog_output/fp_add_test_standalone.sv,1737210711,systemVerilog,,C:/Users/Nutzer/OneDrive/Dokumente/GitHub/sus-float/fsegref_WrapperTests/FpAddTestBench.sv,,fp_add_test,,uvm,,,,,,
