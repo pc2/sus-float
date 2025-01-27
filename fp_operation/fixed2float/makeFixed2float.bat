@@ -1,0 +1,1 @@
+sus_compiler --standalone fixed2float fixed2float.sus
