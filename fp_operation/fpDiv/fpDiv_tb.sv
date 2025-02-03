@@ -1,10 +1,10 @@
 module fpDiv_tb
 
-    reg aclk
+    reg aclk;
 
 initial begin 
-    aclk = 0
-    forever #10 aclk = ~aclk
+    aclk = 0;
+    forever #10 aclk = ~aclk;
 end
 
     //Inputs to the module under test
@@ -14,7 +14,7 @@ end
     wire [31:0] result;
 
     // Initiate the module under test
-    fp_mult uut (
+    fpDiv uut (
         .aclk(aclk),
         .value1(value1),
         .value2(value2),
@@ -22,7 +22,7 @@ end
     );
 
     initial begin 
-        #10000
+        #10000;
         // Test case 1: 1,5 / 1,5
         value1 = 32'h3fc00000;
         value2 = 32'h3fc00000;
@@ -31,7 +31,7 @@ end
         // Test case 2: -3,5 / 2,5
         value1 = 32'hc0600000;
         value2 = 32'h40200000;
-        #10000
+        #10000;
         
         $finish;
     end
