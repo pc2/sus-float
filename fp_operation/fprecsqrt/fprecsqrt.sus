@@ -1,0 +1,14 @@
+module fprecsqrt {
+
+    interface fprecsqrt: bool[32] value'0 -> bool[32] result'30
+    
+    floating_point_0 fprsqrt
+
+    result = fprsqrt(value)
+}
+
+extern module floating_point_0 {
+    domain aclk
+
+    interface floating_point_0: bool[32] s_axis_a_tdata'0 -> bool[32] m_axis_result_tdata'30
+}
