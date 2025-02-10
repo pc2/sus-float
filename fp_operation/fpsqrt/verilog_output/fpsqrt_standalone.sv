@@ -2,7 +2,7 @@
 // This file was generated with SUS Compiler 0.2.0-devel
 // ::fpsqrt #()
 module fpsqrt___(
-	input clk,
+	input aclk,
 	input wire [31:0] value,
 	output /*mux_wire*/ logic [31:0] result
 );
@@ -10,7 +10,7 @@ module fpsqrt___(
 /*mux_wire*/ logic [31:0] fpsqrt_s_axis_a_tdata;
 wire [31:0] fpsqrt_m_axis_result_tdata;
 floating_point_0 #() fpsqrt(
-	.aclk(clk),
+	.aclk(aclk),
 	.s_axis_a_tdata(fpsqrt_s_axis_a_tdata),
 	.m_axis_result_tdata(fpsqrt_m_axis_result_tdata)
 );

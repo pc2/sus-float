@@ -1,6 +1,6 @@
 module fpDiv {
 
-    interface fpMult: bool[32] value1'0, bool[32] value2'0 -> bool[32] result'29
+    interface fpDiv: bool[32] value1'0, bool[32] value2'0 -> bool[32] result'29
 
     floating_point_0 fpd 
 

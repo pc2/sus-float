@@ -2,7 +2,7 @@
 // This file was generated with SUS Compiler 0.2.0-devel
 // ::fixed2float #()
 module fixed2float___(
-	input clk,
+	input aclk,
 	input wire [31:0] value,
 	output /*mux_wire*/ logic [31:0] result
 );
@@ -10,7 +10,7 @@ module fixed2float___(
 /*mux_wire*/ logic [31:0] f2fp_s_axis_a_tdata;
 wire [31:0] f2fp_m_axis_result_tdata;
 floating_point_0 #() f2fp(
-	.aclk(clk),
+	.aclk(aclk),
 	.s_axis_a_tdata(f2fp_s_axis_a_tdata),
 	.m_axis_result_tdata(f2fp_m_axis_result_tdata)
 );

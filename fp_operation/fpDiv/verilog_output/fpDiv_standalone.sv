@@ -2,7 +2,7 @@
 // This file was generated with SUS Compiler 0.2.0-devel
 // ::fpDiv #()
 module fpDiv___(
-	input clk,
+	input aclk,
 	input wire [31:0] value1,
 	input wire [31:0] value2,
 	output /*mux_wire*/ logic [31:0] result
@@ -11,8 +11,8 @@ module fpDiv___(
 /*mux_wire*/ logic [31:0] fpd_s_axis_a_tdata;
 /*mux_wire*/ logic [31:0] fpd_s_axis_b_tdata;
 wire [31:0] fpd_m_axis_result_tdata;
-floating_point_1 #() fpd(
-	.aclk(clk),
+floating_point_0 #() fpd(
+	.aclk(aclk),
 	.s_axis_a_tdata(fpd_s_axis_a_tdata),
 	.s_axis_b_tdata(fpd_s_axis_b_tdata),
 	.m_axis_result_tdata(fpd_m_axis_result_tdata)
@@ -127,7 +127,7 @@ always_comb begin
 end
 endmodule
 
-// ::floating_point_1 #()
+// ::floating_point_0 #()
 // Provided externally
 // module floating_point_1___(
 // 	input aclk,
