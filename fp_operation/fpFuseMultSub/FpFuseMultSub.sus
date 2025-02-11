@@ -1,0 +1,18 @@
+
+module fpFuseMultSub {
+
+    interface fpFuseMultSub: bool[32] value1'0, bool[32] value2'0, bool[32] value3'0 -> bool[32] result'17
+
+    floating_point_0 fpms 
+
+    result = fpms(value1, value2, value3)
+
+}
+
+
+extern module floating_point_0 {
+    domain aclk
+
+    interface floating_point_0: bool[32] s_axis_a_tdata'0,bool [32] s_axis_b_tdata'0, bool[32] s_axis_c_tdata'0 ->  bool[32] m_axis_result_tdata'17
+    
+}
