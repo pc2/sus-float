@@ -1,0 +1,320 @@
+
+module fpAdd {
+
+    interface fpAdd: bool[32] value1'0, bool[32] value2'0 -> bool[32] result'11
+    
+    floating_point_0 fpa
+
+    result = fpa(value1, value2)
+}
+
+extern module floating_point_0 {
+    domain aclk 
+
+    interface floating_point_0: bool[32] s_axis_a_tdata'0, bool[32] s_axis_b_tdata'0 -> bool[32] m_axis_result_tdata'11
+}
+
+
+module fpAbsolute {
+
+    interface fpAbsolute: bool[32] value'0 -> bool[32] result'0
+    
+    floating_point_1 fpab
+
+    result = fpab(value)
+}
+
+extern module floating_point_1 {
+    domain aclk
+
+    interface floating_point_1: bool[32] s_axis_a_tdata'0 -> bool[32] m_axis_result_tdata'0
+}
+
+module fpMult {
+
+    interface fpMult: bool[32] value1'0, bool[32] value2'0 -> bool[32] result'9
+
+    floating_point_2 fpm 
+
+    result = fpm(value1, value2)
+
+}
+
+
+extern module floating_point_2 {
+    domain aclk
+
+    interface floating_point_2: bool[32] s_axis_a_tdata'0,bool [32] s_axis_b_tdata'0 ->  bool[32] m_axis_result_tdata'9
+    
+}
+
+
+module fixed2float {
+
+    interface fixed2float: bool[32] value'0 -> bool[32] result'7
+    
+    floating_point_3 f2fp
+
+    result = f2fp(value)
+}
+
+extern module floating_point_3 {
+    domain aclk
+
+    interface floating_point_3: bool[32] s_axis_a_tdata'0 -> bool[32] m_axis_result_tdata'7
+}
+
+
+module fpDiv {
+
+    interface fpDiv: bool[32] value1'0, bool[32] value2'0 -> bool[32] result'29
+
+    floating_point_4 fpd 
+
+    result = fpd (value1, value2)
+
+}
+
+
+extern module floating_point_4 {
+    domain aclk
+
+    interface floating_point_4: bool[32] s_axis_a_tdata'0,bool [32] s_axis_b_tdata'0 ->  bool[32] m_axis_result_tdata'29
+    
+}
+
+
+
+module fpEqual {
+
+    interface fpEqual: bool[32] value1'0, bool[32] value2'0 -> bool[32] result'2
+    
+    floating_point_5 fpe
+
+    result = fpe(value1, value2)
+}
+
+extern module floating_point_5 {
+    domain aclk 
+
+    interface floating_point_5: bool[32] s_axis_a_tdata'0, bool[32] s_axis_b_tdata'0 -> bool[32] m_axis_result_tdata'2
+}
+
+
+
+module fpFuseMultAdd {
+
+    interface fpFuseMultAdd: bool[32] value1'0, bool[32] value2'0, bool[32] value3'0 -> bool[32] result'17
+
+    floating_point_6 fpma 
+
+    result = fpma(value1, value2, value3)
+
+}
+
+
+extern module floating_point_6 {
+    domain aclk
+
+    interface floating_point_6: bool[32] s_axis_a_tdata'0,bool [32] s_axis_b_tdata'0, bool[32] s_axis_c_tdata'0 ->  bool[32] m_axis_result_tdata'17
+    
+}
+
+
+
+module fpFuseMultSub {
+
+    interface fpFuseMultSub: bool[32] value1'0, bool[32] value2'0, bool[32] value3'0 -> bool[32] result'17
+
+    floating_point_7 fpms 
+
+    result = fpms(value1, value2, value3)
+
+}
+
+
+extern module floating_point_7 {
+    domain aclk
+
+    interface floating_point_7: bool[32] s_axis_a_tdata'0,bool [32] s_axis_b_tdata'0, bool[32] s_axis_c_tdata'0 ->  bool[32] m_axis_result_tdata'17
+    
+}
+
+
+
+module fpGreater_equal {
+
+    interface fpGreater_equal: bool[32] value1'0, bool[32] value2'0 -> bool[32] result'2
+    
+    floating_point_8 fpge
+
+    result = fpge(value1, value2)
+}
+
+extern module floating_point_8 {
+    domain aclk 
+
+    interface floating_point_8: bool[32] s_axis_a_tdata'0, bool[32] s_axis_b_tdata'0 -> bool[32] m_axis_result_tdata'2
+}
+
+
+
+module fpGreater_than {
+
+    interface fpGreater_than: bool[32] value1'0, bool[32] value2'0 -> bool[32] result'2
+    
+    floating_point_9 fpgt
+
+    result = fpgt(value1, value2)
+}
+
+extern module floating_point_9 {
+    domain aclk 
+
+    interface floating_point_9: bool[32] s_axis_a_tdata'0, bool[32] s_axis_b_tdata'0 -> bool[32] m_axis_result_tdata'2
+}
+
+
+
+module fpLess_equal {
+
+    interface fpLess_equal: bool[32] value1'0, bool[32] value2'0 -> bool[32] result'2
+    
+    floating_point_10 fple
+
+    result = fple(value1, value2)
+}
+
+extern module floating_point_10 {
+    domain aclk 
+
+    interface floating_point_10: bool[32] s_axis_a_tdata'0, bool[32] s_axis_b_tdata'0 -> bool[32] m_axis_result_tdata'2
+}
+
+
+
+module fpLess_than {
+
+    interface fpLess_than: bool[32] value1'0, bool[32] value2'0 -> bool[32] result'2
+    
+    floating_point_11 fplt
+
+    result = fplt(value1, value2)
+}
+
+extern module floating_point_11 {
+    domain aclk 
+
+    interface floating_point_11: bool[32] s_axis_a_tdata'0, bool[32] s_axis_b_tdata'0 -> bool[32] m_axis_result_tdata'2
+}
+
+
+
+module fpNot_equal {
+
+    interface fpNot_Equal: bool[32] value1'0, bool[32] value2'0 -> bool[32] result'2
+    
+    floating_point_12 fpne
+
+    result = fpne(value1, value2)
+}
+
+extern module floating_point_12 {
+    domain aclk 
+
+    interface floating_point_12: bool[32] s_axis_a_tdata'0, bool[32] s_axis_b_tdata'0 -> bool[32] m_axis_result_tdata'2
+}
+
+
+
+module fpSub {
+
+    interface fpSub: bool[32] value1'0, bool[32] value2'0 -> bool[32] result'12
+    
+    floating_point_13 fps
+
+    result = fps(value1, value2)
+}
+
+extern module floating_point_13 {
+    domain aclk 
+
+    interface floating_point_13: bool[32] s_axis_a_tdata'0, bool[32] s_axis_b_tdata'0 -> bool[32] m_axis_result_tdata'12
+}
+
+module fpexpo {
+
+    interface fpexpo: bool[32] value'0 -> bool[32] result'21
+    
+    floating_point_14 fpxp
+
+    result = fpxp(value)
+}
+
+extern module floating_point_14 {
+    domain aclk
+
+    interface floating_point_14: bool[32] s_axis_a_tdata'0 -> bool[32] m_axis_result_tdata'21
+}
+
+
+module fplog {
+
+    interface fplog: bool[32] value'0 -> bool[32] result'23
+    
+    floating_point_15 fpl
+
+    result = fpl(value)
+}
+
+extern module floating_point_15 {
+    domain aclk
+
+    interface floating_point_15: bool[32] s_axis_a_tdata'0 -> bool[32] m_axis_result_tdata'23
+}
+
+module fprec {
+
+    interface fprec: bool[32] value'0 -> bool[32] result'30
+    
+    floating_point_16 fpsqrt
+
+    result = fpsqrt(value)
+}
+
+extern module floating_point_16 {
+    domain aclk
+
+    interface floating_point_16: bool[32] s_axis_a_tdata'0 -> bool[32] m_axis_result_tdata'30
+}
+
+
+module fprecsqrt {
+
+    interface fprecsqrt: bool[32] value'0 -> bool[32] result'30
+    
+    floating_point_17 fprsqrt
+
+    result = fprsqrt(value)
+}
+
+extern module floating_point_17 {
+    domain aclk
+
+    interface floating_point_17: bool[32] s_axis_a_tdata'0 -> bool[32] m_axis_result_tdata'30
+}
+
+module fpsqrt {
+
+    interface fpsqrt: bool[32] value'0 -> bool[32] result'29
+    
+    floating_point_18 fpsqrt
+
+    result = fpsqrt(value)
+}
+
+extern module floating_point_18 {
+    domain aclk
+
+    interface floating_point_18: bool[32] s_axis_a_tdata'0 -> bool[32] m_axis_result_tdata'29
+}
