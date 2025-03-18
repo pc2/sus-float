@@ -4,7 +4,7 @@
 module TestTreeAdd(
 	input clk,
 	input wire start,
-	input wire[31:0] Array[3:0],
+	input wire[31:0] Array[9:0],
 	output /*mux_wire*/ logic[31:0] Result
 );
 
@@ -32,10 +32,34 @@ module TestTreeAdd(
 /*latency*/ logic  _start_D22; always_ff @(posedge clk) begin _start_D22 <= _start_D21; end
 /*latency*/ logic  _start_D23; always_ff @(posedge clk) begin _start_D23 <= _start_D22; end
 /*latency*/ logic  _start_D24; always_ff @(posedge clk) begin _start_D24 <= _start_D23; end
+/*latency*/ logic  _start_D25; always_ff @(posedge clk) begin _start_D25 <= _start_D24; end
+/*latency*/ logic  _start_D26; always_ff @(posedge clk) begin _start_D26 <= _start_D25; end
+/*latency*/ logic  _start_D27; always_ff @(posedge clk) begin _start_D27 <= _start_D26; end
+/*latency*/ logic  _start_D28; always_ff @(posedge clk) begin _start_D28 <= _start_D27; end
+/*latency*/ logic  _start_D29; always_ff @(posedge clk) begin _start_D29 <= _start_D28; end
+/*latency*/ logic  _start_D30; always_ff @(posedge clk) begin _start_D30 <= _start_D29; end
+/*latency*/ logic  _start_D31; always_ff @(posedge clk) begin _start_D31 <= _start_D30; end
+/*latency*/ logic  _start_D32; always_ff @(posedge clk) begin _start_D32 <= _start_D31; end
+/*latency*/ logic  _start_D33; always_ff @(posedge clk) begin _start_D33 <= _start_D32; end
+/*latency*/ logic  _start_D34; always_ff @(posedge clk) begin _start_D34 <= _start_D33; end
+/*latency*/ logic  _start_D35; always_ff @(posedge clk) begin _start_D35 <= _start_D34; end
+/*latency*/ logic  _start_D36; always_ff @(posedge clk) begin _start_D36 <= _start_D35; end
+/*latency*/ logic  _start_D37; always_ff @(posedge clk) begin _start_D37 <= _start_D36; end
+/*latency*/ logic  _start_D38; always_ff @(posedge clk) begin _start_D38 <= _start_D37; end
+/*latency*/ logic  _start_D39; always_ff @(posedge clk) begin _start_D39 <= _start_D38; end
+/*latency*/ logic  _start_D40; always_ff @(posedge clk) begin _start_D40 <= _start_D39; end
+/*latency*/ logic  _start_D41; always_ff @(posedge clk) begin _start_D41 <= _start_D40; end
+/*latency*/ logic  _start_D42; always_ff @(posedge clk) begin _start_D42 <= _start_D41; end
+/*latency*/ logic  _start_D43; always_ff @(posedge clk) begin _start_D43 <= _start_D42; end
+/*latency*/ logic  _start_D44; always_ff @(posedge clk) begin _start_D44 <= _start_D43; end
+/*latency*/ logic  _start_D45; always_ff @(posedge clk) begin _start_D45 <= _start_D44; end
+/*latency*/ logic  _start_D46; always_ff @(posedge clk) begin _start_D46 <= _start_D45; end
+/*latency*/ logic  _start_D47; always_ff @(posedge clk) begin _start_D47 <= _start_D46; end
+/*latency*/ logic  _start_D48; always_ff @(posedge clk) begin _start_D48 <= _start_D47; end
 genvar _g0;
-/*mux_wire*/ logic[31:0] _1_values[3:0];
+/*mux_wire*/ logic[31:0] _1_values[9:0];
 wire[31:0] _1_total;
-fpTreeAdd__WIDTH4 _1(
+fpTreeAdd__WIDTH10 _1(
 	.clk(clk),
 	.values(_1_values),
 	.total(_1_total)
@@ -43,7 +67,7 @@ fpTreeAdd__WIDTH4 _1(
 always_comb begin
 	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
 	Result = 'x;
-	if(_start_D24) Result = _1_total;
+	if(_start_D48) Result = _1_total;
 end
 always_comb begin
 	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
@@ -51,47 +75,53 @@ always_comb begin
 	_1_values[1] = 'x;
 	_1_values[2] = 'x;
 	_1_values[3] = 'x;
-	for(int _v0 = 0; _v0 < 4; _v0 = _v0 + 1) if(start) _1_values[_v0] = Array[_v0];
+	_1_values[4] = 'x;
+	_1_values[5] = 'x;
+	_1_values[6] = 'x;
+	_1_values[7] = 'x;
+	_1_values[8] = 'x;
+	_1_values[9] = 'x;
+	for(int _v0 = 0; _v0 < 10; _v0 = _v0 + 1) if(start) _1_values[_v0] = Array[_v0];
 end
 endmodule
 
 // ::fpTreeAdd #(
-//     WIDTH: 4,
+//     WIDTH: 10,
 // )
-module fpTreeAdd__WIDTH4(
+module fpTreeAdd__WIDTH10(
 	input clk,
-	input wire[31:0] values[3:0],
+	input wire[31:0] values[9:0],
 	output /*mux_wire*/ logic[31:0] total
 );
 
 genvar _g0;
-/*mux_wire*/ logic[31:0] left_part[1:0];
-/*mux_wire*/ logic[31:0] right_part[1:0];
-/*mux_wire*/ logic[31:0] split_i[3:0];
-wire[31:0] split_left[1:0];
-wire[31:0] split_right[1:0];
+/*mux_wire*/ logic[31:0] left_part[4:0];
+/*mux_wire*/ logic[31:0] right_part[4:0];
+/*mux_wire*/ logic[31:0] split_i[9:0];
+wire[31:0] split_left[4:0];
+wire[31:0] split_right[4:0];
 /*mux_wire*/ logic[31:0] left_total;
-/*mux_wire*/ logic[31:0] _1_values[1:0];
+/*mux_wire*/ logic[31:0] _1_values[4:0];
 wire[31:0] _1_total;
 /*mux_wire*/ logic[31:0] right_total;
-/*mux_wire*/ logic[31:0] _2_values[1:0];
+/*mux_wire*/ logic[31:0] _2_values[4:0];
 wire[31:0] _2_total;
 /*mux_wire*/ logic[31:0] _3_value1;
 /*mux_wire*/ logic[31:0] _3_value2;
 wire[31:0] _3_result;
-/*latency*/ logic [31:0] __3_result_D24; always_ff @(posedge clk) begin __3_result_D24 <= _3_result; end
-fpSplitAt__Ttypefloat_SIZE4_SPLIT_POINT2 split(
+/*latency*/ logic [31:0] __3_result_D48; always_ff @(posedge clk) begin __3_result_D48 <= _3_result; end
+fpSplitAt__Ttypefloat_SIZE10_SPLIT_POINT5 split(
 	.clk(clk),
 	.i(split_i),
 	.left(split_left),
 	.right(split_right)
 );
-fpTreeAdd__WIDTH2 _1(
+fpTreeAdd__WIDTH5 _1(
 	.clk(clk),
 	.values(_1_values),
 	.total(_1_total)
 );
-fpTreeAdd__WIDTH2 _2(
+fpTreeAdd__WIDTH5 _2(
 	.clk(clk),
 	.values(_2_values),
 	.total(_2_total)
@@ -105,7 +135,194 @@ fpAdd _3(
 always_comb begin
 	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
 	total = 'x;
-	total = __3_result_D24;
+	total = __3_result_D48;
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	left_part[0] = 'x;
+	left_part[1] = 'x;
+	left_part[2] = 'x;
+	left_part[3] = 'x;
+	left_part[4] = 'x;
+	for(int _v0 = 0; _v0 < 5; _v0 = _v0 + 1) left_part[_v0] = split_left[_v0];
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	right_part[0] = 'x;
+	right_part[1] = 'x;
+	right_part[2] = 'x;
+	right_part[3] = 'x;
+	right_part[4] = 'x;
+	for(int _v0 = 0; _v0 < 5; _v0 = _v0 + 1) right_part[_v0] = split_right[_v0];
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	split_i[0] = 'x;
+	split_i[1] = 'x;
+	split_i[2] = 'x;
+	split_i[3] = 'x;
+	split_i[4] = 'x;
+	split_i[5] = 'x;
+	split_i[6] = 'x;
+	split_i[7] = 'x;
+	split_i[8] = 'x;
+	split_i[9] = 'x;
+	for(int _v0 = 0; _v0 < 10; _v0 = _v0 + 1) split_i[_v0] = values[_v0];
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	left_total = 'x;
+	left_total = _1_total;
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	_1_values[0] = 'x;
+	_1_values[1] = 'x;
+	_1_values[2] = 'x;
+	_1_values[3] = 'x;
+	_1_values[4] = 'x;
+	for(int _v0 = 0; _v0 < 5; _v0 = _v0 + 1) _1_values[_v0] = left_part[_v0];
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	right_total = 'x;
+	right_total = _2_total;
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	_2_values[0] = 'x;
+	_2_values[1] = 'x;
+	_2_values[2] = 'x;
+	_2_values[3] = 'x;
+	_2_values[4] = 'x;
+	for(int _v0 = 0; _v0 < 5; _v0 = _v0 + 1) _2_values[_v0] = right_part[_v0];
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	_3_value1 = 'x;
+	_3_value1 = left_total;
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	_3_value2 = 'x;
+	_3_value2 = right_total;
+end
+endmodule
+
+// ::fpSplitAt #(
+//     T: type ::float,
+//     SIZE: 10,
+//     SPLIT_POINT: 5,
+// )
+module fpSplitAt__Ttypefloat_SIZE10_SPLIT_POINT5(
+	input clk,
+	input wire[31:0] i[9:0],
+	output /*mux_wire*/ logic[31:0] left[4:0],
+	output /*mux_wire*/ logic[31:0] right[4:0]
+);
+
+genvar _g0;
+wire[31:0] _2 = i[0];
+wire[31:0] _5 = i[1];
+wire[31:0] _8 = i[2];
+wire[31:0] _11 = i[3];
+wire[31:0] _14 = i[4];
+wire[31:0] _17 = i[5];
+wire[31:0] _20 = i[6];
+wire[31:0] _23 = i[7];
+wire[31:0] _26 = i[8];
+wire[31:0] _29 = i[9];
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	left[0] = 'x;
+	left[1] = 'x;
+	left[2] = 'x;
+	left[3] = 'x;
+	left[4] = 'x;
+	left[0] = _2;
+	left[1] = _5;
+	left[2] = _8;
+	left[3] = _11;
+	left[4] = _14;
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	right[0] = 'x;
+	right[1] = 'x;
+	right[2] = 'x;
+	right[3] = 'x;
+	right[4] = 'x;
+	right[0] = _17;
+	right[1] = _20;
+	right[2] = _23;
+	right[3] = _26;
+	right[4] = _29;
+end
+endmodule
+
+// ::fpTreeAdd #(
+//     WIDTH: 5,
+// )
+module fpTreeAdd__WIDTH5(
+	input clk,
+	input wire[31:0] values[4:0],
+	output /*mux_wire*/ logic[31:0] total
+);
+
+genvar _g0;
+/*mux_wire*/ logic[31:0] left_part[1:0];
+/*mux_wire*/ logic[31:0] right_part[2:0];
+/*mux_wire*/ logic[31:0] split_i[4:0];
+wire[31:0] split_left[1:0];
+wire[31:0] split_right[2:0];
+/*mux_wire*/ logic[31:0] left_total;
+/*latency*/ logic [31:0] _left_total_D13; always_ff @(posedge clk) begin _left_total_D13 <= left_total; end
+/*latency*/ logic [31:0] _left_total_D14; always_ff @(posedge clk) begin _left_total_D14 <= _left_total_D13; end
+/*latency*/ logic [31:0] _left_total_D15; always_ff @(posedge clk) begin _left_total_D15 <= _left_total_D14; end
+/*latency*/ logic [31:0] _left_total_D16; always_ff @(posedge clk) begin _left_total_D16 <= _left_total_D15; end
+/*latency*/ logic [31:0] _left_total_D17; always_ff @(posedge clk) begin _left_total_D17 <= _left_total_D16; end
+/*latency*/ logic [31:0] _left_total_D18; always_ff @(posedge clk) begin _left_total_D18 <= _left_total_D17; end
+/*latency*/ logic [31:0] _left_total_D19; always_ff @(posedge clk) begin _left_total_D19 <= _left_total_D18; end
+/*latency*/ logic [31:0] _left_total_D20; always_ff @(posedge clk) begin _left_total_D20 <= _left_total_D19; end
+/*latency*/ logic [31:0] _left_total_D21; always_ff @(posedge clk) begin _left_total_D21 <= _left_total_D20; end
+/*latency*/ logic [31:0] _left_total_D22; always_ff @(posedge clk) begin _left_total_D22 <= _left_total_D21; end
+/*latency*/ logic [31:0] _left_total_D23; always_ff @(posedge clk) begin _left_total_D23 <= _left_total_D22; end
+/*latency*/ logic [31:0] _left_total_D24; always_ff @(posedge clk) begin _left_total_D24 <= _left_total_D23; end
+/*mux_wire*/ logic[31:0] _1_values[1:0];
+wire[31:0] _1_total;
+/*mux_wire*/ logic[31:0] right_total;
+/*mux_wire*/ logic[31:0] _2_values[2:0];
+wire[31:0] _2_total;
+/*mux_wire*/ logic[31:0] _3_value1;
+/*mux_wire*/ logic[31:0] _3_value2;
+wire[31:0] _3_result;
+/*latency*/ logic [31:0] __3_result_D36; always_ff @(posedge clk) begin __3_result_D36 <= _3_result; end
+fpSplitAt__Ttypefloat_SIZE5_SPLIT_POINT2 split(
+	.clk(clk),
+	.i(split_i),
+	.left(split_left),
+	.right(split_right)
+);
+fpTreeAdd__WIDTH2 _1(
+	.clk(clk),
+	.values(_1_values),
+	.total(_1_total)
+);
+fpTreeAdd__WIDTH3 _2(
+	.clk(clk),
+	.values(_2_values),
+	.total(_2_total)
+);
+fpAdd _3(
+	.clk(clk),
+	.value1(_3_value1),
+	.value2(_3_value2),
+	.result(_3_result)
+);
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	total = 'x;
+	total = __3_result_D36;
 end
 always_comb begin
 	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
@@ -117,7 +334,8 @@ always_comb begin
 	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
 	right_part[0] = 'x;
 	right_part[1] = 'x;
-	for(int _v0 = 0; _v0 < 2; _v0 = _v0 + 1) right_part[_v0] = split_right[_v0];
+	right_part[2] = 'x;
+	for(int _v0 = 0; _v0 < 3; _v0 = _v0 + 1) right_part[_v0] = split_right[_v0];
 end
 always_comb begin
 	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
@@ -125,7 +343,8 @@ always_comb begin
 	split_i[1] = 'x;
 	split_i[2] = 'x;
 	split_i[3] = 'x;
-	for(int _v0 = 0; _v0 < 4; _v0 = _v0 + 1) split_i[_v0] = values[_v0];
+	split_i[4] = 'x;
+	for(int _v0 = 0; _v0 < 5; _v0 = _v0 + 1) split_i[_v0] = values[_v0];
 end
 always_comb begin
 	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
@@ -147,12 +366,13 @@ always_comb begin
 	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
 	_2_values[0] = 'x;
 	_2_values[1] = 'x;
-	for(int _v0 = 0; _v0 < 2; _v0 = _v0 + 1) _2_values[_v0] = right_part[_v0];
+	_2_values[2] = 'x;
+	for(int _v0 = 0; _v0 < 3; _v0 = _v0 + 1) _2_values[_v0] = right_part[_v0];
 end
 always_comb begin
 	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
 	_3_value1 = 'x;
-	_3_value1 = left_total;
+	_3_value1 = _left_total_D24;
 end
 always_comb begin
 	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
@@ -161,16 +381,50 @@ always_comb begin
 end
 endmodule
 
+// ::fpAdd #()
+module fpAdd(
+	input clk,
+	input wire[31:0] value1,
+	input wire[31:0] value2,
+	output /*mux_wire*/ logic[31:0] result
+);
+
+/*mux_wire*/ logic[31:0] fpa_s_axis_a_tdata;
+/*mux_wire*/ logic[31:0] fpa_s_axis_b_tdata;
+wire[31:0] fpa_m_axis_result_tdata;
+floating_point_0 #() fpa(
+	.aclk(clk),
+	.s_axis_a_tdata(fpa_s_axis_a_tdata),
+	.s_axis_b_tdata(fpa_s_axis_b_tdata),
+	.m_axis_result_tdata(fpa_m_axis_result_tdata)
+);
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	result = 'x;
+	result = fpa_m_axis_result_tdata;
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	fpa_s_axis_a_tdata = 'x;
+	fpa_s_axis_a_tdata = value1;
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	fpa_s_axis_b_tdata = 'x;
+	fpa_s_axis_b_tdata = value2;
+end
+endmodule
+
 // ::fpSplitAt #(
 //     T: type ::float,
-//     SIZE: 4,
+//     SIZE: 5,
 //     SPLIT_POINT: 2,
 // )
-module fpSplitAt__Ttypefloat_SIZE4_SPLIT_POINT2(
+module fpSplitAt__Ttypefloat_SIZE5_SPLIT_POINT2(
 	input clk,
-	input wire[31:0] i[3:0],
+	input wire[31:0] i[4:0],
 	output /*mux_wire*/ logic[31:0] left[1:0],
-	output /*mux_wire*/ logic[31:0] right[1:0]
+	output /*mux_wire*/ logic[31:0] right[2:0]
 );
 
 genvar _g0;
@@ -178,6 +432,7 @@ wire[31:0] _2 = i[0];
 wire[31:0] _5 = i[1];
 wire[31:0] _8 = i[2];
 wire[31:0] _11 = i[3];
+wire[31:0] _14 = i[4];
 always_comb begin
 	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
 	left[0] = 'x;
@@ -189,8 +444,10 @@ always_comb begin
 	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
 	right[0] = 'x;
 	right[1] = 'x;
+	right[2] = 'x;
 	right[0] = _8;
 	right[1] = _11;
+	right[2] = _14;
 end
 endmodule
 
@@ -294,40 +551,131 @@ always_comb begin
 end
 endmodule
 
-// ::fpAdd #()
-module fpAdd(
+// ::fpTreeAdd #(
+//     WIDTH: 3,
+// )
+module fpTreeAdd__WIDTH3(
 	input clk,
-	input wire[31:0] value1,
-	input wire[31:0] value2,
-	output /*mux_wire*/ logic[31:0] result
+	input wire[31:0] values[2:0],
+	output /*mux_wire*/ logic[31:0] total
 );
 
-/*mux_wire*/ logic[31:0] fpa_s_axis_a_tdata;
-/*mux_wire*/ logic[31:0] fpa_s_axis_b_tdata;
-wire[31:0] fpa_m_axis_result_tdata;
-floating_point_0 #() fpa(
-	.aclk(clk),
-	.s_axis_a_tdata(fpa_s_axis_a_tdata),
-	.s_axis_b_tdata(fpa_s_axis_b_tdata),
-	.m_axis_result_tdata(fpa_m_axis_result_tdata)
+genvar _g0;
+/*mux_wire*/ logic[31:0] left_part[0:0];
+/*mux_wire*/ logic[31:0] right_part[1:0];
+/*mux_wire*/ logic[31:0] split_i[2:0];
+wire[31:0] split_left[0:0];
+wire[31:0] split_right[1:0];
+/*mux_wire*/ logic[31:0] left_total;
+/*latency*/ logic [31:0] _left_total_D1; always_ff @(posedge clk) begin _left_total_D1 <= left_total; end
+/*latency*/ logic [31:0] _left_total_D2; always_ff @(posedge clk) begin _left_total_D2 <= _left_total_D1; end
+/*latency*/ logic [31:0] _left_total_D3; always_ff @(posedge clk) begin _left_total_D3 <= _left_total_D2; end
+/*latency*/ logic [31:0] _left_total_D4; always_ff @(posedge clk) begin _left_total_D4 <= _left_total_D3; end
+/*latency*/ logic [31:0] _left_total_D5; always_ff @(posedge clk) begin _left_total_D5 <= _left_total_D4; end
+/*latency*/ logic [31:0] _left_total_D6; always_ff @(posedge clk) begin _left_total_D6 <= _left_total_D5; end
+/*latency*/ logic [31:0] _left_total_D7; always_ff @(posedge clk) begin _left_total_D7 <= _left_total_D6; end
+/*latency*/ logic [31:0] _left_total_D8; always_ff @(posedge clk) begin _left_total_D8 <= _left_total_D7; end
+/*latency*/ logic [31:0] _left_total_D9; always_ff @(posedge clk) begin _left_total_D9 <= _left_total_D8; end
+/*latency*/ logic [31:0] _left_total_D10; always_ff @(posedge clk) begin _left_total_D10 <= _left_total_D9; end
+/*latency*/ logic [31:0] _left_total_D11; always_ff @(posedge clk) begin _left_total_D11 <= _left_total_D10; end
+/*latency*/ logic [31:0] _left_total_D12; always_ff @(posedge clk) begin _left_total_D12 <= _left_total_D11; end
+/*mux_wire*/ logic[31:0] _1_values[0:0];
+wire[31:0] _1_total;
+/*mux_wire*/ logic[31:0] right_total;
+/*mux_wire*/ logic[31:0] _2_values[1:0];
+wire[31:0] _2_total;
+/*mux_wire*/ logic[31:0] _3_value1;
+/*mux_wire*/ logic[31:0] _3_value2;
+wire[31:0] _3_result;
+/*latency*/ logic [31:0] __3_result_D24; always_ff @(posedge clk) begin __3_result_D24 <= _3_result; end
+fpSplitAt__Ttypefloat_SIZE3_SPLIT_POINT1 split(
+	.clk(clk),
+	.i(split_i),
+	.left(split_left),
+	.right(split_right)
+);
+fpTreeAdd__WIDTH1 _1(
+	.clk(clk),
+	.values(_1_values),
+	.total(_1_total)
+);
+fpTreeAdd__WIDTH2 _2(
+	.clk(clk),
+	.values(_2_values),
+	.total(_2_total)
+);
+fpAdd _3(
+	.clk(clk),
+	.value1(_3_value1),
+	.value2(_3_value2),
+	.result(_3_result)
 );
 always_comb begin
 	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
-	result = 'x;
-	result = fpa_m_axis_result_tdata;
+	total = 'x;
+	total = __3_result_D24;
 end
 always_comb begin
 	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
-	fpa_s_axis_a_tdata = 'x;
-	fpa_s_axis_a_tdata = value1;
+	left_part[0] = 'x;
+	for(int _v0 = 0; _v0 < 1; _v0 = _v0 + 1) left_part[_v0] = split_left[_v0];
 end
 always_comb begin
 	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
-	fpa_s_axis_b_tdata = 'x;
-	fpa_s_axis_b_tdata = value2;
+	right_part[0] = 'x;
+	right_part[1] = 'x;
+	for(int _v0 = 0; _v0 < 2; _v0 = _v0 + 1) right_part[_v0] = split_right[_v0];
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	split_i[0] = 'x;
+	split_i[1] = 'x;
+	split_i[2] = 'x;
+	for(int _v0 = 0; _v0 < 3; _v0 = _v0 + 1) split_i[_v0] = values[_v0];
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	left_total = 'x;
+	left_total = _1_total;
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	_1_values[0] = 'x;
+	for(int _v0 = 0; _v0 < 1; _v0 = _v0 + 1) _1_values[_v0] = left_part[_v0];
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	right_total = 'x;
+	right_total = _2_total;
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	_2_values[0] = 'x;
+	_2_values[1] = 'x;
+	for(int _v0 = 0; _v0 < 2; _v0 = _v0 + 1) _2_values[_v0] = right_part[_v0];
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	_3_value1 = 'x;
+	_3_value1 = _left_total_D12;
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	_3_value2 = 'x;
+	_3_value2 = right_total;
 end
 endmodule
 
+// ::floating_point_0 #()
+// Provided externally
+// module floating_point_0(
+// 	input aclk,
+// 	input wire[31:0] s_axis_a_tdata,
+// 	input wire[31:0] s_axis_b_tdata,
+// 	output /*mux_wire*/ logic[31:0] m_axis_result_tdata
+// );
+// 
+// 
 // ::fpSplitAt #(
 //     T: type ::float,
 //     SIZE: 2,
@@ -373,13 +721,33 @@ always_comb begin
 end
 endmodule
 
-// ::floating_point_0 #()
-// Provided externally
-// module floating_point_0(
-// 	input aclk,
-// 	input wire[31:0] s_axis_a_tdata,
-// 	input wire[31:0] s_axis_b_tdata,
-// 	output /*mux_wire*/ logic[31:0] m_axis_result_tdata
-// );
-// 
-// 
+// ::fpSplitAt #(
+//     T: type ::float,
+//     SIZE: 3,
+//     SPLIT_POINT: 1,
+// )
+module fpSplitAt__Ttypefloat_SIZE3_SPLIT_POINT1(
+	input clk,
+	input wire[31:0] i[2:0],
+	output /*mux_wire*/ logic[31:0] left[0:0],
+	output /*mux_wire*/ logic[31:0] right[1:0]
+);
+
+genvar _g0;
+wire[31:0] _2 = i[0];
+wire[31:0] _5 = i[1];
+wire[31:0] _8 = i[2];
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	left[0] = 'x;
+	left[0] = _2;
+end
+always_comb begin
+	// Combinatorial wires are not defined when not valid. This is just so that the synthesis tool doesn't generate latches
+	right[0] = 'x;
+	right[1] = 'x;
+	right[0] = _5;
+	right[1] = _8;
+end
+endmodule
+

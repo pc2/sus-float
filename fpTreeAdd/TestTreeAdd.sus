@@ -1,8 +1,8 @@
 module TestTreeAdd {
-    interface TestTreeAdd : bool start, float[4] Array -> float Result
+    interface TestTreeAdd : bool start, float[10] Array -> float Result
 
     when start { 
-    Result = fpTreeAdd#(WIDTH: 4)(Array)
+    Result = fpTreeAdd#(WIDTH: 10)(Array)
     }
 }
 
@@ -69,7 +69,5 @@ module fpZero {
 }
 
 extern module float_zero {
-    domain aclk 
-
     interface float_zero: -> float float_zero'0
 }

@@ -2,7 +2,7 @@ module TestTreeAdd_tb;
 
 reg clk;
 reg start;
-reg[31:0]  Array[3:0];
+reg[31:0]  Array[9:0];
 wire[31:0] Result;
 
 TestTreeAdd uut(
@@ -67,9 +67,18 @@ initial begin
     Array[3][24] = 1; Array[3][25] = 1; Array[3][26] = 0; Array[3][27] = 1;
     Array[3][28] = 1; Array[3][29] = 0; Array[3][30] = 1; Array[3][31] = 1;
     */
-    Array[0] = 32'h3f99999a; Array[1] = 32'h3fb33333; Array[2] = 32'h3fe66666; Array[3] = 32'h3ff33333; // 1.2, 1.4, 1.8, 1.9 -> result should be 6.3
+    Array[0] = 32'h3f8ccccd; // 1.1
+    Array[1] = 32'h40066666; // 2.1
+    Array[2] = 32'h3fc00000; // 1.5
+    Array[3] = 32'h40400000; // 3.0
+    Array[4] = 32'h3f99999a; // 1.2
+    Array[5] = 32'h40a00000; // 5.0
+    Array[6] = 32'h3f800000; // 1.0
+    Array[7] = 32'h40200000; // 2.5
+    Array[8] = 32'h3fcccccd; // 1.6
+    Array[9] = 32'h4083f35c; // 4.123456789 -> result should be 23.123456789
     start = 1;
-    #380
+    #480
     $finish;
 end
 
