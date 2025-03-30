@@ -1,4 +1,4 @@
-module fpNot_qual_tb;
+module fpNot_equal_tb;
     
     reg aclk;
     
