@@ -1,5 +1,5 @@
 
-module fpFuseMultAdd_tb;
+module fpFuseMultSub_tb;
 
     reg aclk;
 
@@ -16,7 +16,7 @@ end
     wire [31:0] result;
 
     // Initiate the module under test
-    fpFuseMultAdd uut (
+    fpFuseMultSub uut (
         .aclk(aclk),
         .value1(value1),
         .value2(value2),
@@ -26,13 +26,13 @@ end
 
     initial begin 
         #600;
-        // Test case 1: 1,5 x 1,5 + 2,5
+        // Test case 1: 1,5 x 1,5 - 2,5
         value1 = 32'h3fc00000;
         value2 = 32'h3fc00000;
         value3 = 32'h40200000;
         #600;
 
-        // Test case 2: -3,5 x 2,5 + 1,5
+        // Test case 2: -3,5 x 2,5 - 1,5
         value1 = 32'hc0600000;
         value2 = 32'h40200000;
         value3 = 32'h3fc00000;
