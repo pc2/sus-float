@@ -1,0 +1,379 @@
+
+extern module fp64_fms_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input bool[64] s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input bool[64] s_axis_b_tdata'0
+    input bool s_axis_c_tvalid'0
+    input bool[64] s_axis_c_tdata'0
+    output bool m_axis_result_tvalid'26
+    output bool[64] m_axis_result_tdata'26
+}
+        
+extern module fp64_exp_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input bool[64] s_axis_a_tdata'0
+    output bool m_axis_result_tvalid'44
+    output bool[64] m_axis_result_tdata'44
+}
+        
+extern module fp32_fma_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input float s_axis_b_tdata'0
+    input bool s_axis_c_tvalid'0
+    input float s_axis_c_tdata'0
+    output bool m_axis_result_tvalid'4
+    output float m_axis_result_tdata'4
+}
+        
+extern module fp64_fma_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input bool[64] s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input bool[64] s_axis_b_tdata'0
+    input bool s_axis_c_tvalid'0
+    input bool[64] s_axis_c_tdata'0
+    output bool m_axis_result_tvalid'26
+    output bool[64] m_axis_result_tdata'26
+}
+        
+extern module fp32_div_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input float s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'28
+    output float m_axis_result_tdata'28
+}
+        
+extern module fp64_add_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input bool[64] s_axis_a_tdata'0
+    input bool s_axis_a_tlast'0
+    input bool s_axis_b_tvalid'0
+    input bool[64] s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'14
+    output bool[64] m_axis_result_tdata'14
+    output bool m_axis_result_tlast'14
+}
+        
+extern module fp32_eq_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input float s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'2
+    output bool[8] m_axis_result_tdata'2
+}
+        
+extern module fp32_acc_ip {
+    domain aclk
+    input bool aresetn'0
+
+    domain data
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    input bool s_axis_a_tlast'0
+    output bool m_axis_result_tvalid'2
+    output float m_axis_result_tdata'2
+    output bool m_axis_result_tlast'2
+}
+        
+extern module fp32_exp_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    output bool m_axis_result_tvalid'20
+    output float m_axis_result_tdata'20
+}
+        
+extern module fp32_sqrt_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    output bool m_axis_result_tvalid'28
+    output float m_axis_result_tdata'28
+}
+        
+extern module fp64_ge_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input bool[64] s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input bool[64] s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'2
+    output bool[8] m_axis_result_tdata'2
+}
+        
+extern module fp32_add_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input float s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'2
+    output float m_axis_result_tdata'2
+}
+        
+extern module fp32_fms_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input float s_axis_b_tdata'0
+    input bool s_axis_c_tvalid'0
+    input float s_axis_c_tdata'0
+    output bool m_axis_result_tvalid'4
+    output float m_axis_result_tdata'4
+}
+        
+extern module fp64_acc_minus_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input bool[64] s_axis_a_tdata'0
+    input bool s_axis_a_tlast'0
+    output bool m_axis_result_tvalid'22
+    output bool[64] m_axis_result_tdata'22
+    output bool m_axis_result_tlast'22
+}
+        
+extern module fp64_mul_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input bool[64] s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input bool[64] s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'12
+    output bool[64] m_axis_result_tdata'12
+}
+        
+extern module fp32_acc_minus_ip {
+    domain aclk
+    input bool aresetn'0
+
+    domain data
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    input bool s_axis_a_tlast'0
+    output bool m_axis_result_tvalid'2
+    output float m_axis_result_tdata'2
+    output bool m_axis_result_tlast'2
+}
+        
+extern module fp64_rsqrt_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input bool[64] s_axis_a_tdata'0
+    output bool m_axis_result_tvalid'110
+    output bool[64] m_axis_result_tdata'110
+}
+        
+extern module fp32_msc_ip {
+    domain aclk
+    input bool aresetn'0
+
+    domain data
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    input bool s_axis_a_tlast'0
+    input bool s_axis_b_tvalid'0
+    input float s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'4
+    output float m_axis_result_tdata'4
+    output bool m_axis_result_tlast'4
+}
+        
+extern module fp64_div_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input bool[64] s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input bool[64] s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'57
+    output bool[64] m_axis_result_tdata'57
+}
+        
+extern module fp64_eq_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input bool[64] s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input bool[64] s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'2
+    output bool[8] m_axis_result_tdata'2
+}
+        
+extern module fp32_rcp_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    output bool m_axis_result_tvalid'29
+    output float m_axis_result_tdata'29
+}
+        
+extern module fp64_sub_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input bool[64] s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input bool[64] s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'14
+    output bool[64] m_axis_result_tdata'14
+}
+        
+extern module fp32_rsqrt_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    output bool m_axis_result_tvalid'32
+    output float m_axis_result_tdata'32
+}
+        
+extern module fp32_ln_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    output bool m_axis_result_tvalid'22
+    output float m_axis_result_tdata'22
+}
+        
+extern module fp32_sub_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input float s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'2
+    output float m_axis_result_tdata'2
+}
+        
+extern module fp32_mul_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input float s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'3
+    output float m_axis_result_tdata'3
+}
+        
+extern module fp64_ln_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input bool[64] s_axis_a_tdata'0
+    input bool s_axis_a_tlast'0
+    output bool m_axis_result_tvalid'48
+    output bool[64] m_axis_result_tdata'48
+    output bool m_axis_result_tlast'48
+}
+        
+extern module fp64_gt_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input bool[64] s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input bool[64] s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'2
+    output bool[8] m_axis_result_tdata'2
+}
+        
+extern module fp64_sqrt_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input bool[64] s_axis_a_tdata'0
+    output bool m_axis_result_tvalid'57
+    output bool[64] m_axis_result_tdata'57
+}
+        
+extern module fp32_gt_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input float s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'2
+    output bool[8] m_axis_result_tdata'2
+}
+        
+extern module fp32_ge_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input float s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'2
+    output bool[8] m_axis_result_tdata'2
+}
+        
+extern module fp64_acc_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input bool[64] s_axis_a_tdata'0
+    input bool s_axis_a_tlast'0
+    output bool m_axis_result_tvalid'22
+    output bool[64] m_axis_result_tdata'22
+    output bool m_axis_result_tlast'22
+}
+        
+extern module fp64_rcp_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input bool[64] s_axis_a_tdata'0
+    output bool m_axis_result_tvalid'35
+    output bool[64] m_axis_result_tdata'35
+}
+        
+extern module fp32_mac_ip {
+    domain aclk
+    input bool aresetn'0
+
+    domain data
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    input bool s_axis_a_tlast'0
+    input bool s_axis_b_tvalid'0
+    input float s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'4
+    output float m_axis_result_tdata'4
+    output bool m_axis_result_tlast'4
+}
+        

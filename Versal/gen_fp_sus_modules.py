@@ -205,7 +205,7 @@ for xci_path in xci_dir_path.glob("**/*.xci"):
         xci_obj = xci(xci_path)
         xci_obj.update_gen_paths(output_path)
 
-        with open(xci_out_files_path / "xci_path.stem", "w") as xci_file:
+        with open(xci_out_files_path / xci_path.name, "w") as xci_file:
             xci_file.write(str(xci_obj))
 
         sus_file_content += xci_obj.generate_sus_module()
