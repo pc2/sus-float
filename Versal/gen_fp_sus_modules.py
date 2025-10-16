@@ -117,7 +117,7 @@ extern module {xci_name} {{
         self.pop()
         self.push("boundary")
 
-        float_type_dict = {"Single" : "float", "Double" : "double"}
+        float_type_dict = {"Single" : "float", "Double" : "bool[64]"}
 
         num_input_signals = 0
         num_input_data = 0
