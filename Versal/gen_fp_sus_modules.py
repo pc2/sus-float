@@ -43,6 +43,23 @@ class xci:
         if flow_control != "NonBlocking" or with_result_tready:
             print(f"[ERROR] {self.xci_name} - operation is not configured as non-blocking")
             exit()
+        
+        with_aresetn = self.get("Has_ARESETn")[0]["value"].lower() == "true"
+        with_a_tlast = self.get("Has_A_TLAST")[0]["value"].lower() == "true"
+        with_b_tlast = self.get("Has_B_TLAST")[0]["value"].lower() == "true"
+        with_c_tlast = self.get("Has_C_TLAST")[0]["value"].lower() == "true"
+
+        if with_a_tlast and not with_aresetn:
+            print(f"[ERROR] {self.xci_name} - has tlast signal but no aresetn")
+            exit()
+
+        if with_b_tlast:
+            print(f"[ERROR] {self.xci_name} - configured with b_tlast")
+            exit()
+        
+        if with_c_tlast:
+            print(f"[ERROR] {self.xci_name} - configured with c_tlast")
+            exit()
     
         self.pop()
         self.push("runtime_parameters")
@@ -95,7 +112,7 @@ class xci:
 
         self.push("parameters")
         self.push("runtime_parameters")
-        self.set("OUTPUTDIR", str(gen_dir.resolve()))
+        self.set("OUTPUTDIR", [{"value" : str(gen_dir.resolve())}])
         self.reset()
  
     def generate_sus_module(self):
@@ -104,7 +121,6 @@ class xci:
         self.push("parameters")
         self.push("component_parameters")
         latency = int(self.get("C_Latency")[0]["value"])
-        with_aresetn = self.get("Has_ARESETn")[0]["value"].lower() == "true"
         
         sus_module_tmpl = f"""
 extern module {xci_name} {{
@@ -112,12 +128,26 @@ extern module {xci_name} {{
     __ARESETN
     __PORTS
 }}
+
+module {xci_name[:-3]} {{
+    __ACLK
+    __ARESETN
+    {xci_name} ip
+    __ARESETN_PROP
+    action {xci_name[5:-3]} : __ACTION_INPUTS -> __ACTION_OUTPUT {{
+        __ACTION_PORTS
+    }} else {{
+        __RESET_VALIDS
+    }}
+}}
         """
+
+
         self.pop()
         self.pop()
         self.push("boundary")
 
-        float_type_dict = {"Single" : "float", "Double" : "bool[64]"}
+        float_type_dict = {"Single" : "float", "Double" : "double"}
 
         num_input_signals = 0
         num_input_data = 0
@@ -125,30 +155,50 @@ extern module {xci_name} {{
         num_output_data = 0
 
         ports = []
+        action_inputs = []
+        action_ports = []
+        reset_valids = []
+        
+
         for port in self.get("ports").keys():
             if port == "aclk":
                 sus_module_tmpl = sus_module_tmpl.replace("__ACLK", "domain aclk")
             elif port == "aresetn":
+                sus_module_tmpl = sus_module_tmpl.replace("__ARESETN_PROP", "ip.aresetn = aresetn")
                 sus_module_tmpl = sus_module_tmpl.replace("__ARESETN", "input bool aresetn'0\n\n    domain data")
             else:
                 if port.startswith("s_axis"):
                     if "tdata" in port:
                         ports.append(f"input {float_type_dict[self.input_prec]} {port}'0")
+                        port_name = port[-7:-6]
+                        action_inputs.append(f"{float_type_dict[self.input_prec]} {port_name}")
+                        action_ports.append(f"ip.{port} = {port_name}")
                         num_input_data += 1
+                    elif "tlast" in port:
+                        ports.append(f"input bool {port}'0")
+                        action_inputs.append(f"bool last")
+                        action_ports.append(f"ip.{port} = last")
                     else:
                         ports.append(f"input bool {port}'0")
+                        action_ports.append(f"ip.{port} = true")
+                        reset_valids.append(f"ip.{port} = false")
                         num_input_signals += 1
                 elif port.startswith("m_axis"):
                     if "tdata" in port:
                         if self.result_prec in float_type_dict:
                             ports.append(f"output {float_type_dict[self.result_prec]} {port}'{latency}")
+                            sus_module_tmpl = sus_module_tmpl.replace("__ACTION_OUTPUT", f"{float_type_dict[self.result_prec]} res")
+                            action_ports.append(f"res = ip.{port}")    
                             num_output_data += 1
                         else:
                             result_bitsize = int(self.get("ports")[port][0]["size_left"]) + 1
                             ports.append(f"output bool[{result_bitsize}] {port}'{latency}")
+                            sus_module_tmpl = sus_module_tmpl.replace("__ACTION_OUTPUT", "bool res")
+                            action_ports.append(f"res = ip.{port}[0]")    
                             num_output_data += 1
                     else:
                         ports.append(f"output bool {port}'{latency}")
+                        action_ports.append(f"bool _{num_output_signals} = ip.{port} // Tie off")
                         num_output_signals += 1
         self.reset()
 
@@ -160,9 +210,14 @@ extern module {xci_name} {{
             print("\tnum_output_data    = {num_output_data}")
             exit()
         
+        action_inputs.sort(key = lambda x: x.split(" ")[1])
 
         sus_module_tmpl = sus_module_tmpl.replace("__PORTS", "\n    ".join(ports))
+        sus_module_tmpl = sus_module_tmpl.replace("__ARESETN_PROP", "")
         sus_module_tmpl = sus_module_tmpl.replace("__ARESETN", "")
+        sus_module_tmpl = sus_module_tmpl.replace("__ACTION_INPUTS", ", ".join(action_inputs))
+        sus_module_tmpl = sus_module_tmpl.replace("__ACTION_PORTS", "\n        ".join(action_ports))
+        sus_module_tmpl = sus_module_tmpl.replace("__RESET_VALIDS", "\n        ".join(reset_valids))
 
         if "__ACLK" in sus_module_tmpl:
             print("[ERROR] {self.xci_name} does not define a clock port (aclk)")

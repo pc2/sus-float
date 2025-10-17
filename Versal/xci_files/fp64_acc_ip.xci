@@ -198,7 +198,8 @@
         ],
         "Has_ARESETn": [
           {
-            "value": "false",
+            "value": "true",
+            "value_src": "user",
             "resolve_type": "user",
             "format": "bool",
             "usage": "all"
@@ -759,7 +760,7 @@
         ],
         "C_HAS_ARESETN": [
           {
-            "value": "0",
+            "value": "1",
             "resolve_type": "generated",
             "format": "long",
             "usage": "all"
@@ -1047,7 +1048,11 @@
             "value": "TRUE"
           }
         ],
-        "OUTPUTDIR": "/scratch/pc2-mitarbeiter/jmenzel/SUS/sus-float/Versal/gen/sources_1/ip",
+        "OUTPUTDIR": [
+          {
+            "value": "/scratch/pc2-mitarbeiter/jmenzel/SUS/sus-float/Versal/gen/sources_1/ip"
+          }
+        ],
         "SELECTEDSIMMODEL": [
           {
             "value": ""
@@ -1076,6 +1081,12 @@
           {
             "direction": "in",
             "driver_value": "0x0"
+          }
+        ],
+        "aresetn": [
+          {
+            "direction": "in",
+            "driver_value": "0x1"
           }
         ],
         "s_axis_a_tvalid": [
@@ -1374,6 +1385,13 @@
                 "usage": "simulation.rtl",
                 "is_ips_inferred": true,
                 "is_static_object": false
+              }
+            ]
+          },
+          "port_maps": {
+            "RST": [
+              {
+                "physical_name": "aresetn"
               }
             ]
           }

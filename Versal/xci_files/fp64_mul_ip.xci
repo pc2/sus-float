@@ -1044,7 +1044,11 @@
             "value": "TRUE"
           }
         ],
-        "OUTPUTDIR": "/scratch/pc2-mitarbeiter/jmenzel/SUS/sus-float/Versal/gen/sources_1/ip",
+        "OUTPUTDIR": [
+          {
+            "value": "/scratch/pc2-mitarbeiter/jmenzel/SUS/sus-float/Versal/gen/sources_1/ip"
+          }
+        ],
         "SELECTEDSIMMODEL": [
           {
             "value": ""

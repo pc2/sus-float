@@ -253,7 +253,7 @@
         ],
         "Has_A_TLAST": [
           {
-            "value": "true",
+            "value": "false",
             "value_src": "user",
             "resolve_type": "user",
             "format": "bool",
@@ -350,7 +350,7 @@
         ],
         "RESULT_TLAST_Behv": [
           {
-            "value": "Pass_A_TLAST",
+            "value": "Null",
             "value_src": "user",
             "resolve_type": "user",
             "usage": "all"
@@ -782,7 +782,7 @@
         ],
         "C_HAS_A_TLAST": [
           {
-            "value": "1",
+            "value": "0",
             "resolve_type": "generated",
             "format": "long",
             "usage": "all"
@@ -870,7 +870,7 @@
         ],
         "C_HAS_RESULT_TLAST": [
           {
-            "value": "1",
+            "value": "0",
             "resolve_type": "generated",
             "format": "long",
             "usage": "all"
@@ -878,7 +878,7 @@
         ],
         "C_TLAST_RESOLUTION": [
           {
-            "value": "1",
+            "value": "0",
             "resolve_type": "generated",
             "format": "long",
             "usage": "all"
@@ -1046,7 +1046,11 @@
             "value": "TRUE"
           }
         ],
-        "OUTPUTDIR": "/scratch/pc2-mitarbeiter/jmenzel/SUS/sus-float/Versal/gen/sources_1/ip",
+        "OUTPUTDIR": [
+          {
+            "value": "/scratch/pc2-mitarbeiter/jmenzel/SUS/sus-float/Versal/gen/sources_1/ip"
+          }
+        ],
         "SELECTEDSIMMODEL": [
           {
             "value": ""
@@ -1091,12 +1095,6 @@
             "driver_value": "0"
           }
         ],
-        "s_axis_a_tlast": [
-          {
-            "direction": "in",
-            "driver_value": "0x0"
-          }
-        ],
         "m_axis_result_tvalid": [
           {
             "direction": "out",
@@ -1109,12 +1107,6 @@
             "size_left": "63",
             "size_right": "0",
             "driver_value": "0"
-          }
-        ],
-        "m_axis_result_tlast": [
-          {
-            "direction": "out",
-            "driver_value": "0x0"
           }
         ]
       },
@@ -1195,7 +1187,7 @@
             ],
             "HAS_TLAST": [
               {
-                "value": "1",
+                "value": "0",
                 "value_src": "auto",
                 "resolve_type": "generated",
                 "format": "long",
@@ -1252,11 +1244,6 @@
             "TDATA": [
               {
                 "physical_name": "s_axis_a_tdata"
-              }
-            ],
-            "TLAST": [
-              {
-                "physical_name": "s_axis_a_tlast"
               }
             ],
             "TVALID": [
@@ -1467,7 +1454,7 @@
             ],
             "HAS_TLAST": [
               {
-                "value": "1",
+                "value": "0",
                 "value_src": "auto",
                 "resolve_type": "generated",
                 "format": "long",
@@ -1524,11 +1511,6 @@
             "TDATA": [
               {
                 "physical_name": "m_axis_result_tdata"
-              }
-            ],
-            "TLAST": [
-              {
-                "physical_name": "m_axis_result_tlast"
               }
             ],
             "TVALID": [

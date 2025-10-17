@@ -1,0 +1,14 @@
+module fp_test {
+    domain clk
+    input float a'0
+    input float b'0
+    input float c'0
+    output float d'6
+    
+    fp32_add add
+    
+    fp32_mul mul
+   
+    float tmp = add.add(a, b)
+    d = mul.mul(tmp, c)
+}

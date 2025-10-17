@@ -1,24 +1,462 @@
 
-extern module fp64_fms_ip {
+extern module fp32_acc_minus_ip {
     domain aclk
-    
+    input bool aresetn'0
+
+    domain data
     input bool s_axis_a_tvalid'0
-    input bool[64] s_axis_a_tdata'0
-    input bool s_axis_b_tvalid'0
-    input bool[64] s_axis_b_tdata'0
-    input bool s_axis_c_tvalid'0
-    input bool[64] s_axis_c_tdata'0
-    output bool m_axis_result_tvalid'26
-    output bool[64] m_axis_result_tdata'26
+    input float s_axis_a_tdata'0
+    input bool s_axis_a_tlast'0
+    output bool m_axis_result_tvalid'2
+    output float m_axis_result_tdata'2
+    output bool m_axis_result_tlast'2
+}
+
+module fp32_acc_minus {
+    domain aclk
+    input bool aresetn'0
+
+    domain data
+    fp32_acc_minus_ip ip
+    ip.aresetn = aresetn
+    action acc_minus : float a, bool last -> float res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_a_tlast = last
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+        bool _1 = ip.m_axis_result_tlast // Tie off
+    } else {
+        ip.s_axis_a_tvalid = false
+    }
 }
         
-extern module fp64_exp_ip {
+extern module fp64_sqrt_ip {
     domain aclk
     
     input bool s_axis_a_tvalid'0
-    input bool[64] s_axis_a_tdata'0
-    output bool m_axis_result_tvalid'44
-    output bool[64] m_axis_result_tdata'44
+    input double s_axis_a_tdata'0
+    output bool m_axis_result_tvalid'57
+    output double m_axis_result_tdata'57
+}
+
+module fp64_sqrt {
+    domain aclk
+    
+    fp64_sqrt_ip ip
+    
+    action sqrt : double a -> double res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+    }
+}
+        
+extern module fp64_ln_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input double s_axis_a_tdata'0
+    output bool m_axis_result_tvalid'48
+    output double m_axis_result_tdata'48
+}
+
+module fp64_ln {
+    domain aclk
+    
+    fp64_ln_ip ip
+    
+    action ln : double a -> double res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+    }
+}
+        
+extern module fp32_ln_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    output bool m_axis_result_tvalid'22
+    output float m_axis_result_tdata'22
+}
+
+module fp32_ln {
+    domain aclk
+    
+    fp32_ln_ip ip
+    
+    action ln : float a -> float res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+    }
+}
+        
+extern module fp64_ge_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input double s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input double s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'2
+    output bool[8] m_axis_result_tdata'2
+}
+
+module fp64_ge {
+    domain aclk
+    
+    fp64_ge_ip ip
+    
+    action ge : double a, double b -> bool res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata[0]
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+    }
+}
+        
+extern module fp32_sqrt_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    output bool m_axis_result_tvalid'28
+    output float m_axis_result_tdata'28
+}
+
+module fp32_sqrt {
+    domain aclk
+    
+    fp32_sqrt_ip ip
+    
+    action sqrt : float a -> float res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+    }
+}
+        
+extern module fp32_div_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input float s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'28
+    output float m_axis_result_tdata'28
+}
+
+module fp32_div {
+    domain aclk
+    
+    fp32_div_ip ip
+    
+    action div : float a, float b -> float res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+    }
+}
+        
+extern module fp64_fma_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input double s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input double s_axis_b_tdata'0
+    input bool s_axis_c_tvalid'0
+    input double s_axis_c_tdata'0
+    output bool m_axis_result_tvalid'26
+    output double m_axis_result_tdata'26
+}
+
+module fp64_fma {
+    domain aclk
+    
+    fp64_fma_ip ip
+    
+    action fma : double a, double b, double c -> double res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        ip.s_axis_c_tvalid = true
+        ip.s_axis_c_tdata = c
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+        ip.s_axis_c_tvalid = false
+    }
+}
+        
+extern module fp64_div_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input double s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input double s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'57
+    output double m_axis_result_tdata'57
+}
+
+module fp64_div {
+    domain aclk
+    
+    fp64_div_ip ip
+    
+    action div : double a, double b -> double res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+    }
+}
+        
+extern module fp32_ge_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input float s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'2
+    output bool[8] m_axis_result_tdata'2
+}
+
+module fp32_ge {
+    domain aclk
+    
+    fp32_ge_ip ip
+    
+    action ge : float a, float b -> bool res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata[0]
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+    }
+}
+        
+extern module fp64_sub_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input double s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input double s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'14
+    output double m_axis_result_tdata'14
+}
+
+module fp64_sub {
+    domain aclk
+    
+    fp64_sub_ip ip
+    
+    action sub : double a, double b -> double res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+    }
+}
+        
+extern module fp64_mul_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input double s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input double s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'12
+    output double m_axis_result_tdata'12
+}
+
+module fp64_mul {
+    domain aclk
+    
+    fp64_mul_ip ip
+    
+    action mul : double a, double b -> double res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+    }
+}
+        
+extern module fp32_gt_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input float s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'2
+    output bool[8] m_axis_result_tdata'2
+}
+
+module fp32_gt {
+    domain aclk
+    
+    fp32_gt_ip ip
+    
+    action gt : float a, float b -> bool res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata[0]
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+    }
+}
+        
+extern module fp64_gt_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input double s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input double s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'2
+    output bool[8] m_axis_result_tdata'2
+}
+
+module fp64_gt {
+    domain aclk
+    
+    fp64_gt_ip ip
+    
+    action gt : double a, double b -> bool res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata[0]
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+    }
+}
+        
+extern module fp32_mac_ip {
+    domain aclk
+    input bool aresetn'0
+
+    domain data
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    input bool s_axis_a_tlast'0
+    input bool s_axis_b_tvalid'0
+    input float s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'4
+    output float m_axis_result_tdata'4
+    output bool m_axis_result_tlast'4
+}
+
+module fp32_mac {
+    domain aclk
+    input bool aresetn'0
+
+    domain data
+    fp32_mac_ip ip
+    ip.aresetn = aresetn
+    action mac : float a, float b, bool last -> float res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_a_tlast = last
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+        bool _1 = ip.m_axis_result_tlast // Tie off
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+    }
+}
+        
+extern module fp32_sub_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input float s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'2
+    output float m_axis_result_tdata'2
+}
+
+module fp32_sub {
+    domain aclk
+    
+    fp32_sub_ip ip
+    
+    action sub : float a, float b -> float res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+    }
 }
         
 extern module fp32_fma_ip {
@@ -33,42 +471,26 @@ extern module fp32_fma_ip {
     output bool m_axis_result_tvalid'4
     output float m_axis_result_tdata'4
 }
-        
-extern module fp64_fma_ip {
+
+module fp32_fma {
     domain aclk
     
-    input bool s_axis_a_tvalid'0
-    input bool[64] s_axis_a_tdata'0
-    input bool s_axis_b_tvalid'0
-    input bool[64] s_axis_b_tdata'0
-    input bool s_axis_c_tvalid'0
-    input bool[64] s_axis_c_tdata'0
-    output bool m_axis_result_tvalid'26
-    output bool[64] m_axis_result_tdata'26
-}
-        
-extern module fp32_div_ip {
-    domain aclk
+    fp32_fma_ip ip
     
-    input bool s_axis_a_tvalid'0
-    input float s_axis_a_tdata'0
-    input bool s_axis_b_tvalid'0
-    input float s_axis_b_tdata'0
-    output bool m_axis_result_tvalid'28
-    output float m_axis_result_tdata'28
-}
-        
-extern module fp64_add_ip {
-    domain aclk
-    
-    input bool s_axis_a_tvalid'0
-    input bool[64] s_axis_a_tdata'0
-    input bool s_axis_a_tlast'0
-    input bool s_axis_b_tvalid'0
-    input bool[64] s_axis_b_tdata'0
-    output bool m_axis_result_tvalid'14
-    output bool[64] m_axis_result_tdata'14
-    output bool m_axis_result_tlast'14
+    action fma : float a, float b, float c -> float res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        ip.s_axis_c_tvalid = true
+        ip.s_axis_c_tdata = c
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+        ip.s_axis_c_tvalid = false
+    }
 }
         
 extern module fp32_eq_ip {
@@ -81,47 +503,52 @@ extern module fp32_eq_ip {
     output bool m_axis_result_tvalid'2
     output bool[8] m_axis_result_tdata'2
 }
-        
-extern module fp32_acc_ip {
-    domain aclk
-    input bool aresetn'0
 
-    domain data
-    input bool s_axis_a_tvalid'0
-    input float s_axis_a_tdata'0
-    input bool s_axis_a_tlast'0
-    output bool m_axis_result_tvalid'2
-    output float m_axis_result_tdata'2
-    output bool m_axis_result_tlast'2
+module fp32_eq {
+    domain aclk
+    
+    fp32_eq_ip ip
+    
+    action eq : float a, float b -> bool res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata[0]
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+    }
 }
         
-extern module fp32_exp_ip {
+extern module fp32_mul_ip {
     domain aclk
     
     input bool s_axis_a_tvalid'0
     input float s_axis_a_tdata'0
-    output bool m_axis_result_tvalid'20
-    output float m_axis_result_tdata'20
-}
-        
-extern module fp32_sqrt_ip {
-    domain aclk
-    
-    input bool s_axis_a_tvalid'0
-    input float s_axis_a_tdata'0
-    output bool m_axis_result_tvalid'28
-    output float m_axis_result_tdata'28
-}
-        
-extern module fp64_ge_ip {
-    domain aclk
-    
-    input bool s_axis_a_tvalid'0
-    input bool[64] s_axis_a_tdata'0
     input bool s_axis_b_tvalid'0
-    input bool[64] s_axis_b_tdata'0
-    output bool m_axis_result_tvalid'2
-    output bool[8] m_axis_result_tdata'2
+    input float s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'3
+    output float m_axis_result_tdata'3
+}
+
+module fp32_mul {
+    domain aclk
+    
+    fp32_mul_ip ip
+    
+    action mul : float a, float b -> float res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+    }
 }
         
 extern module fp32_add_ip {
@@ -133,6 +560,96 @@ extern module fp32_add_ip {
     input float s_axis_b_tdata'0
     output bool m_axis_result_tvalid'2
     output float m_axis_result_tdata'2
+}
+
+module fp32_add {
+    domain aclk
+    
+    fp32_add_ip ip
+    
+    action add : float a, float b -> float res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+    }
+}
+        
+extern module fp64_rsqrt_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input double s_axis_a_tdata'0
+    output bool m_axis_result_tvalid'110
+    output double m_axis_result_tdata'110
+}
+
+module fp64_rsqrt {
+    domain aclk
+    
+    fp64_rsqrt_ip ip
+    
+    action rsqrt : double a -> double res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+    }
+}
+        
+extern module fp64_exp_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input double s_axis_a_tdata'0
+    output bool m_axis_result_tvalid'44
+    output double m_axis_result_tdata'44
+}
+
+module fp64_exp {
+    domain aclk
+    
+    fp64_exp_ip ip
+    
+    action exp : double a -> double res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+    }
+}
+        
+extern module fp32_exp_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input float s_axis_a_tdata'0
+    output bool m_axis_result_tvalid'20
+    output float m_axis_result_tdata'20
+}
+
+module fp32_exp {
+    domain aclk
+    
+    fp32_exp_ip ip
+    
+    action exp : float a -> float res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+    }
 }
         
 extern module fp32_fms_ip {
@@ -147,30 +664,29 @@ extern module fp32_fms_ip {
     output bool m_axis_result_tvalid'4
     output float m_axis_result_tdata'4
 }
-        
-extern module fp64_acc_minus_ip {
+
+module fp32_fms {
     domain aclk
     
-    input bool s_axis_a_tvalid'0
-    input bool[64] s_axis_a_tdata'0
-    input bool s_axis_a_tlast'0
-    output bool m_axis_result_tvalid'22
-    output bool[64] m_axis_result_tdata'22
-    output bool m_axis_result_tlast'22
-}
-        
-extern module fp64_mul_ip {
-    domain aclk
+    fp32_fms_ip ip
     
-    input bool s_axis_a_tvalid'0
-    input bool[64] s_axis_a_tdata'0
-    input bool s_axis_b_tvalid'0
-    input bool[64] s_axis_b_tdata'0
-    output bool m_axis_result_tvalid'12
-    output bool[64] m_axis_result_tdata'12
+    action fms : float a, float b, float c -> float res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        ip.s_axis_c_tvalid = true
+        ip.s_axis_c_tdata = c
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+        ip.s_axis_c_tvalid = false
+    }
 }
         
-extern module fp32_acc_minus_ip {
+extern module fp32_acc_ip {
     domain aclk
     input bool aresetn'0
 
@@ -182,14 +698,48 @@ extern module fp32_acc_minus_ip {
     output float m_axis_result_tdata'2
     output bool m_axis_result_tlast'2
 }
+
+module fp32_acc {
+    domain aclk
+    input bool aresetn'0
+
+    domain data
+    fp32_acc_ip ip
+    ip.aresetn = aresetn
+    action acc : float a, bool last -> float res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_a_tlast = last
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+        bool _1 = ip.m_axis_result_tlast // Tie off
+    } else {
+        ip.s_axis_a_tvalid = false
+    }
+}
         
-extern module fp64_rsqrt_ip {
+extern module fp32_rsqrt_ip {
     domain aclk
     
     input bool s_axis_a_tvalid'0
-    input bool[64] s_axis_a_tdata'0
-    output bool m_axis_result_tvalid'110
-    output bool[64] m_axis_result_tdata'110
+    input float s_axis_a_tdata'0
+    output bool m_axis_result_tvalid'32
+    output float m_axis_result_tdata'32
+}
+
+module fp32_rsqrt {
+    domain aclk
+    
+    fp32_rsqrt_ip ip
+    
+    action rsqrt : float a -> float res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+    }
 }
         
 extern module fp32_msc_ip {
@@ -206,27 +756,27 @@ extern module fp32_msc_ip {
     output float m_axis_result_tdata'4
     output bool m_axis_result_tlast'4
 }
-        
-extern module fp64_div_ip {
+
+module fp32_msc {
     domain aclk
-    
-    input bool s_axis_a_tvalid'0
-    input bool[64] s_axis_a_tdata'0
-    input bool s_axis_b_tvalid'0
-    input bool[64] s_axis_b_tdata'0
-    output bool m_axis_result_tvalid'57
-    output bool[64] m_axis_result_tdata'57
-}
-        
-extern module fp64_eq_ip {
-    domain aclk
-    
-    input bool s_axis_a_tvalid'0
-    input bool[64] s_axis_a_tdata'0
-    input bool s_axis_b_tvalid'0
-    input bool[64] s_axis_b_tdata'0
-    output bool m_axis_result_tvalid'2
-    output bool[8] m_axis_result_tdata'2
+    input bool aresetn'0
+
+    domain data
+    fp32_msc_ip ip
+    ip.aresetn = aresetn
+    action msc : float a, float b, bool last -> float res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_a_tlast = last
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+        bool _1 = ip.m_axis_result_tlast // Tie off
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+    }
 }
         
 extern module fp32_rcp_ip {
@@ -237,143 +787,199 @@ extern module fp32_rcp_ip {
     output bool m_axis_result_tvalid'29
     output float m_axis_result_tdata'29
 }
-        
-extern module fp64_sub_ip {
+
+module fp32_rcp {
     domain aclk
     
-    input bool s_axis_a_tvalid'0
-    input bool[64] s_axis_a_tdata'0
-    input bool s_axis_b_tvalid'0
-    input bool[64] s_axis_b_tdata'0
-    output bool m_axis_result_tvalid'14
-    output bool[64] m_axis_result_tdata'14
-}
-        
-extern module fp32_rsqrt_ip {
-    domain aclk
+    fp32_rcp_ip ip
     
-    input bool s_axis_a_tvalid'0
-    input float s_axis_a_tdata'0
-    output bool m_axis_result_tvalid'32
-    output float m_axis_result_tdata'32
-}
-        
-extern module fp32_ln_ip {
-    domain aclk
-    
-    input bool s_axis_a_tvalid'0
-    input float s_axis_a_tdata'0
-    output bool m_axis_result_tvalid'22
-    output float m_axis_result_tdata'22
-}
-        
-extern module fp32_sub_ip {
-    domain aclk
-    
-    input bool s_axis_a_tvalid'0
-    input float s_axis_a_tdata'0
-    input bool s_axis_b_tvalid'0
-    input float s_axis_b_tdata'0
-    output bool m_axis_result_tvalid'2
-    output float m_axis_result_tdata'2
-}
-        
-extern module fp32_mul_ip {
-    domain aclk
-    
-    input bool s_axis_a_tvalid'0
-    input float s_axis_a_tdata'0
-    input bool s_axis_b_tvalid'0
-    input float s_axis_b_tdata'0
-    output bool m_axis_result_tvalid'3
-    output float m_axis_result_tdata'3
-}
-        
-extern module fp64_ln_ip {
-    domain aclk
-    
-    input bool s_axis_a_tvalid'0
-    input bool[64] s_axis_a_tdata'0
-    input bool s_axis_a_tlast'0
-    output bool m_axis_result_tvalid'48
-    output bool[64] m_axis_result_tdata'48
-    output bool m_axis_result_tlast'48
-}
-        
-extern module fp64_gt_ip {
-    domain aclk
-    
-    input bool s_axis_a_tvalid'0
-    input bool[64] s_axis_a_tdata'0
-    input bool s_axis_b_tvalid'0
-    input bool[64] s_axis_b_tdata'0
-    output bool m_axis_result_tvalid'2
-    output bool[8] m_axis_result_tdata'2
-}
-        
-extern module fp64_sqrt_ip {
-    domain aclk
-    
-    input bool s_axis_a_tvalid'0
-    input bool[64] s_axis_a_tdata'0
-    output bool m_axis_result_tvalid'57
-    output bool[64] m_axis_result_tdata'57
-}
-        
-extern module fp32_gt_ip {
-    domain aclk
-    
-    input bool s_axis_a_tvalid'0
-    input float s_axis_a_tdata'0
-    input bool s_axis_b_tvalid'0
-    input float s_axis_b_tdata'0
-    output bool m_axis_result_tvalid'2
-    output bool[8] m_axis_result_tdata'2
-}
-        
-extern module fp32_ge_ip {
-    domain aclk
-    
-    input bool s_axis_a_tvalid'0
-    input float s_axis_a_tdata'0
-    input bool s_axis_b_tvalid'0
-    input float s_axis_b_tdata'0
-    output bool m_axis_result_tvalid'2
-    output bool[8] m_axis_result_tdata'2
-}
-        
-extern module fp64_acc_ip {
-    domain aclk
-    
-    input bool s_axis_a_tvalid'0
-    input bool[64] s_axis_a_tdata'0
-    input bool s_axis_a_tlast'0
-    output bool m_axis_result_tvalid'22
-    output bool[64] m_axis_result_tdata'22
-    output bool m_axis_result_tlast'22
+    action rcp : float a -> float res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+    }
 }
         
 extern module fp64_rcp_ip {
     domain aclk
     
     input bool s_axis_a_tvalid'0
-    input bool[64] s_axis_a_tdata'0
+    input double s_axis_a_tdata'0
     output bool m_axis_result_tvalid'35
-    output bool[64] m_axis_result_tdata'35
+    output double m_axis_result_tdata'35
+}
+
+module fp64_rcp {
+    domain aclk
+    
+    fp64_rcp_ip ip
+    
+    action rcp : double a -> double res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+    }
 }
         
-extern module fp32_mac_ip {
+extern module fp64_acc_ip {
     domain aclk
     input bool aresetn'0
 
     domain data
     input bool s_axis_a_tvalid'0
-    input float s_axis_a_tdata'0
+    input double s_axis_a_tdata'0
     input bool s_axis_a_tlast'0
+    output bool m_axis_result_tvalid'22
+    output double m_axis_result_tdata'22
+    output bool m_axis_result_tlast'22
+}
+
+module fp64_acc {
+    domain aclk
+    input bool aresetn'0
+
+    domain data
+    fp64_acc_ip ip
+    ip.aresetn = aresetn
+    action acc : double a, bool last -> double res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_a_tlast = last
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+        bool _1 = ip.m_axis_result_tlast // Tie off
+    } else {
+        ip.s_axis_a_tvalid = false
+    }
+}
+        
+extern module fp64_fms_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input double s_axis_a_tdata'0
     input bool s_axis_b_tvalid'0
-    input float s_axis_b_tdata'0
-    output bool m_axis_result_tvalid'4
-    output float m_axis_result_tdata'4
-    output bool m_axis_result_tlast'4
+    input double s_axis_b_tdata'0
+    input bool s_axis_c_tvalid'0
+    input double s_axis_c_tdata'0
+    output bool m_axis_result_tvalid'26
+    output double m_axis_result_tdata'26
+}
+
+module fp64_fms {
+    domain aclk
+    
+    fp64_fms_ip ip
+    
+    action fms : double a, double b, double c -> double res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        ip.s_axis_c_tvalid = true
+        ip.s_axis_c_tdata = c
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+        ip.s_axis_c_tvalid = false
+    }
+}
+        
+extern module fp64_acc_minus_ip {
+    domain aclk
+    input bool aresetn'0
+
+    domain data
+    input bool s_axis_a_tvalid'0
+    input double s_axis_a_tdata'0
+    input bool s_axis_a_tlast'0
+    output bool m_axis_result_tvalid'22
+    output double m_axis_result_tdata'22
+    output bool m_axis_result_tlast'22
+}
+
+module fp64_acc_minus {
+    domain aclk
+    input bool aresetn'0
+
+    domain data
+    fp64_acc_minus_ip ip
+    ip.aresetn = aresetn
+    action acc_minus : double a, bool last -> double res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_a_tlast = last
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+        bool _1 = ip.m_axis_result_tlast // Tie off
+    } else {
+        ip.s_axis_a_tvalid = false
+    }
+}
+        
+extern module fp64_eq_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input double s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input double s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'2
+    output bool[8] m_axis_result_tdata'2
+}
+
+module fp64_eq {
+    domain aclk
+    
+    fp64_eq_ip ip
+    
+    action eq : double a, double b -> bool res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata[0]
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+    }
+}
+        
+extern module fp64_add_ip {
+    domain aclk
+    
+    input bool s_axis_a_tvalid'0
+    input double s_axis_a_tdata'0
+    input bool s_axis_b_tvalid'0
+    input double s_axis_b_tdata'0
+    output bool m_axis_result_tvalid'14
+    output double m_axis_result_tdata'14
+}
+
+module fp64_add {
+    domain aclk
+    
+    fp64_add_ip ip
+    
+    action add : double a, double b -> double res {
+        ip.s_axis_a_tvalid = true
+        ip.s_axis_a_tdata = a
+        ip.s_axis_b_tvalid = true
+        ip.s_axis_b_tdata = b
+        bool _0 = ip.m_axis_result_tvalid // Tie off
+        res = ip.m_axis_result_tdata
+    } else {
+        ip.s_axis_a_tvalid = false
+        ip.s_axis_b_tvalid = false
+    }
 }
         
