@@ -1,1 +1,0 @@
-sus_compiler --standalone fplog fplog.sus

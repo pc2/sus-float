@@ -1,1 +1,0 @@
-sus_compiler --standalone TestMatrixMultiply TestMatrixMultiply.sus

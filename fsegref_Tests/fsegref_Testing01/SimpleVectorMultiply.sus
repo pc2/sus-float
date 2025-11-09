@@ -1,9 +1,0 @@
-module SimpleVectorMultiply {
-
-    interface SimpleVectorMultiply: int A1, int A2, int B1, int B2 -> int Result11, int Result12, int Result21, int Result22 
-    
-    Result11 = A1 * B1
-    Result12 = A1 * B2
-    Result21 = A2 * B1
-    Result22 = A2 * B2
-}

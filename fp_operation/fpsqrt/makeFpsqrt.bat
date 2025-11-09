@@ -1,1 +1,0 @@
-sus_compiler --standalone fpsqrt fpsqrt.sus

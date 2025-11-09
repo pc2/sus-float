@@ -1,1 +1,0 @@
-sus_compiler --standalone fprecsqrt fprecsqrt.sus
