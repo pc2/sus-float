@@ -134,13 +134,13 @@ module {xci_name[:-3]} {{
     __ARESETN
     {xci_name} ip
     __ARESETN_PROP
-    action {xci_name[5:-3]} : __ACTION_INPUTS -> __ACTION_OUTPUT {{
+    action {xci_name[:-3]} : __ACTION_INPUTS -> __ACTION_OUTPUT {{
         __ACTION_PORTS
     }} else {{
         __RESET_VALIDS
     }}
 }}
-        """
+"""
 
 
         self.pop()
@@ -255,7 +255,10 @@ fp_mod_pattern = re.compile("^fp\d\d_.*_ip$")
 
 sus_file_content = ""
 
-for xci_path in xci_dir_path.glob("**/*.xci"):
+# collect and sort xci files deterministically by their path relative to xci_dir_path
+xci_files = sorted(xci_dir_path.glob("**/*.xci"), key=lambda p: str(p.relative_to(xci_dir_path)))
+
+for xci_path in xci_files:
     if fp_mod_pattern.match(xci_path.stem):
         xci_obj = xci(xci_path)
         xci_obj.update_gen_paths(output_path)

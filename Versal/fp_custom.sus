@@ -1,0 +1,91 @@
+
+module fp32_neg {
+    interface fp32_neg : float v -> float o {
+        bool[32] v_bits = ToBits(v)
+        bool[32] o_bits
+        o_bits[0:31] = v_bits[0:31]
+        o_bits[31] = !v_bits[31]
+        o = FromBits(o_bits)
+    }
+}
+
+module fp64_neg {
+    interface fp64_neg : double v -> double o {
+        bool[64] v_bits = ToBits(v)
+        bool[64] o_bits
+        o_bits[0:63] = v_bits[0:63]
+        o_bits[63] = !v_bits[63]
+        o = FromBits(o_bits)
+    }
+}
+
+module fp32_abs {
+    interface fp32_abs : float v -> float o {
+        bool[32] v_bits = ToBits(v)
+        bool[32] o_bits
+        o_bits[0:31] = v_bits[0:31]
+        o_bits[31] = false
+        o = FromBits(o_bits)
+    }
+}
+
+module fp64_abs {
+    interface fp64_abs : double v -> double o {
+        bool[64] v_bits = ToBits(v)
+        bool[64] o_bits
+        o_bits[0:63] = v_bits[0:63]
+        o_bits[63] = false
+        o = FromBits(o_bits)
+    }
+}
+
+module fp_mul_pow2_bitwise#(int MANTISSA_BITS, int EXPONENT_BITS, int FROM, int TO) {
+    gen int EXPONENT_INF = pow2#(E: EXPONENT_BITS) - 1
+    gen bool[MANTISSA_BITS] ZEROS = RepeatGen#(T: type bool, SIZE: MANTISSA_BITS, V: false)
+    interface fp_mul_pow2_bitwise : bool[1+MANTISSA_BITS+EXPONENT_BITS] v_bits, int#(FROM, TO) power -> bool[1+MANTISSA_BITS+EXPONENT_BITS] o_bits
+    
+    int exponent = BitsToUInt(v_bits[MANTISSA_BITS+:EXPONENT_BITS])
+    bool[MANTISSA_BITS] mantissa = v_bits[0:MANTISSA_BITS]
+
+    int new_exp
+    bool[MANTISSA_BITS] new_mantissa
+    when exponent == EXPONENT_INF { // or already infinity or NaN, then we won't change it. Ignore 
+        new_exp = EXPONENT_INF
+        new_mantissa = mantissa
+    } else when exponent == 0 { // If it's already zero, get rid of denormalization. 
+        new_exp = 0
+        new_mantissa = mantissa
+    } else {
+        int new_exponent = exponent + power
+        when new_exponent <= 0 {
+            new_exp = 0
+            new_mantissa = ZEROS
+        } else when new_exponent >= EXPONENT_INF {
+            new_exp = EXPONENT_INF
+            new_mantissa = ZEROS
+        } else {
+            new_exp = IntNarrow#(FROM: 1, TO: EXPONENT_INF)(new_exponent)
+            new_mantissa = mantissa
+        }
+    }
+    o_bits[0:MANTISSA_BITS] = new_mantissa
+    o_bits[MANTISSA_BITS+:EXPONENT_BITS] = UIntToBits(new_exp)
+    o_bits[MANTISSA_BITS + EXPONENT_BITS] = v_bits[MANTISSA_BITS + EXPONENT_BITS]
+}
+/// Cheaply implement v * 2^power by adjusting floating point exponents. 
+module fp32_mul_pow2#(int FROM, int TO) {
+    interface fp32_mul_pow2 : float v, int#(FROM, TO) power -> float o
+    bool[32] v_bits = ToBits(v)
+    bool[32] o_bits = fp_mul_pow2_bitwise#(MANTISSA_BITS: 23, EXPONENT_BITS: 8)(v_bits, power)
+    
+    o = FromBits(o_bits)
+}
+
+/// Cheaply implement v * 2^power by adjusting floating point exponents. 
+module fp64_mul_pow2#(int FROM, int TO) {
+    interface fp64_mul_pow2 : double v, int#(FROM, TO) power -> double o
+    bool[64] v_bits = ToBits(v)
+    bool[64] o_bits = fp_mul_pow2_bitwise#(MANTISSA_BITS: 52, EXPONENT_BITS: 11)(v_bits, power)
+    
+    o = FromBits(o_bits)
+}
