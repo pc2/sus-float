@@ -263,9 +263,7 @@ for xci_path in xci_files:
         xci_obj = xci(xci_path)
         xci_obj.update_gen_paths(output_path)
 
-        dest_dir = xci_out_files_path / xci_path.stem
-        dest_dir.mkdir(parents=True, exist_ok=True)
-        dest_file = dest_dir / xci_path.name
+        dest_file = xci_out_files_path / xci_path.name
         with open(dest_file, "w") as xci_file:
             xci_file.write(str(xci_obj))
 

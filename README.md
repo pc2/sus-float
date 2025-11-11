@@ -6,7 +6,7 @@
 <!-- Floating point library for SUS on Virtex Ultrascale+ (See Ultra) -->
 
 ### Versal
-Wrappers for Versal devices are stored in [Versal/](Versal/). Use it by including [Versal/fp_wrappers.sus](Versal/fp_wrappers.sus) and [Versal/fp_custom.sus](Versal/fp_custom.sus) in your sus design, and adding all [`.xci` IP files](Versal/xci_files/) to your Vivado project.
+Wrappers for Versal devices are stored in [Versal/](Versal/). Use it by including [Versal/fp_wrappers.sus](Versal/fp_wrappers.sus) and [Versal/fp_custom.sus](Versal/fp_custom.sus) in your sus design, and adding all [`.xci` IP files](Versal/xci_files/) to your Vivado project. It's important to import the IP files as IP through `import_ip`, and not `add_files`. For example, the TCL command `import_ip [glob -type f xci_files/*.xci]` should work
 
 ## Example
 ```sus
