@@ -26,6 +26,15 @@ module ComputeRoots_tb;
     );
     
     initial begin
+        $monitor("%1t]] a: %2.8f, b: %2.8f, c: %2.8f, roots_valid: %d, root_1: %2.8f, root_2: %2.8f",
+            $time,
+            $bitstoshortreal(a),
+            $bitstoshortreal(b),
+            $bitstoshortreal(c),
+            roots_valid,
+            $bitstoshortreal(root_1),
+            $bitstoshortreal(root_2)
+        );
         repeat(20) @(posedge clk);
         a <= $shortrealtobits(3.0);
         b <= $shortrealtobits(-2.0);
@@ -40,6 +49,7 @@ module ComputeRoots_tb;
         @(posedge clk);
         compute_roots <= 1'b0;
         repeat(40) @(posedge clk);
+        $finish();
     end
 
 endmodule

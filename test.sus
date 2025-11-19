@@ -1,21 +1,21 @@
 module fp_test {
     domain clk
-    input float a'0
-    input float b'0
-    input float c'0
-    output float d'6
+    input float a
+    input float b
+    input float c
+    output float d
     
     fp32_add add
     
     fp32_mul mul
    
-    float tmp = add.add(a, b)
-    d = mul.mul(tmp, c)
+    float tmp = add(a, b)
+    d = mul(tmp, c)
 }
 
 
 module ComputeRoots {
-    action compute_roots : float a, float b, float c {
+    action compute_roots'0 : float a'0, float b'0, float c'0 {
         trigger roots_valid : float root_1, float root_2
 
         float half_b = fp32_mul_pow2(b, -1)

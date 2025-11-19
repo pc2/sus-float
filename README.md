@@ -5,8 +5,21 @@
 
 <!-- Floating point library for SUS on Virtex Ultrascale+ (See Ultra) -->
 
-### Versal
-Wrappers for Versal devices are stored in [Versal/](Versal/). Use it by including [Versal/fp_wrappers.sus](Versal/fp_wrappers.sus) and [Versal/fp_custom.sus](Versal/fp_custom.sus) in your sus design, and adding all [`.xci` IP files](Versal/xci_files/) to your Vivado project. It's important to import the IP files as IP through `import_ip`, and not `add_files`. For example, the TCL command `import_ip [glob -type f xci_files/*.xci]` should work
+### Versal (Made with Vivado 23.1)
+Wrappers for Versal devices are stored in [Versal/](Versal/). Use it by including [Versal/fp_wrappers.sus](Versal/fp_wrappers.sus) and [fp_custom.sus](fp_custom.sus) in your sus design, and adding all [`.xci` IP files](Versal/xci_files/) to your Vivado project. It's important to import the IP files as IP through `import_ip`, and not `add_files`. For example, the TCL command `import_ip [glob -type f xci_files/*.xci]` should work.
+
+### UltraScalePlus (Made with Vivado 23.2)
+Wrappers for Versal devices are stored in [UltraScalePlus/](UltraScalePlus/). Use it by including [UltraScalePlus/fp_wrappers.sus](UltraScalePlus/fp_wrappers.sus) and [fp_custom.sus](fp_custom.sus) in your sus design, and adding all [`.xci` IP files](UltraScalePlus/xci_files/) to your Vivado project. It's important to import the IP files as IP through `import_ip`, and not `add_files`. For example, the TCL command `import_ip [glob -type f xci_files/*.xci]` should work.
+
+#### Missing IPs for UltraScalePlus:
+- fp32_acc_ip
+- fp32_acc_minus_ip
+- fp32_mac_ip
+- fp32_msc_ip
+- fp64_acc_ip
+- fp64_acc_minus_ip
+
+These IPs are not wrapped, because these require a fixed-point internal accumulation register, and are therefore not generic for all floating point operations. You can still create these yourself in Vivado if you have a specific precision range in mind. 
 
 ## Example
 ```sus
