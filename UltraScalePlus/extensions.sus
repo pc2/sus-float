@@ -1,0 +1,74 @@
+
+/// 32-bit floating point accumulator. 
+module fp32_acc {
+    domain clk    
+    gen int FP32_ADD_LATENCY = 11
+    gen int NUM_INTERMEDIATE_STAGES = clog2#(V: FP32_ADD_LATENCY + 1)
+
+    split state float[NUM_INTERMEDIATE_STAGES] stored_float_stages
+    split state bool[NUM_INTERMEDIATE_STAGES] stored_float_stages_valids
+    split float[NUM_INTERMEDIATE_STAGES+1] float_add_outputs
+    split bool[NUM_INTERMEDIATE_STAGES+1] float_add_output_valids
+    for int I in 0..NUM_INTERMEDIATE_STAGES+1 {
+        float_add_output_valids[I] = false
+    }
+
+    // Step through the adders, incrementally adding up sequential values, and slowing the stream down enough so it's slow enough for being added up linearly. 
+    bool is_last = false
+    float total_result
+    for int I in 0..NUM_INTERMEDIATE_STAGES {
+        when float_add_output_valids[I] | is_last {
+            float_add_outputs[I+1] = fp32_add(float_add_outputs[I], stored_float_stages[I])
+            float_add_output_valids[I+1] = stored_float_stages_valids[I]
+            stored_float_stages_valids[I] = false
+            stored_float_stages[I] = 0.0
+        }
+    }
+
+    // The slow accumulator. 
+    state float stored_accumulator
+    float accumulator_input
+    bool accumulator_input_valid
+    float accumulator_output
+    float accumulator_output_offset = LatencyOffset#(OFFSET: -FP32_ADD_LATENCY)(accumulator_output)
+    bool accumulator_output_valid = LatencyOffset#(OFFSET: -FP32_ADD_LATENCY)(accumulator_input_valid)
+    when accumulator_input_valid {
+        accumulator_output = fp32_add(stored_accumulator, accumulator_input)
+    }
+    when accumulator_output_valid {
+        stored_accumulator = accumulator_output_offset
+    }
+
+    float to_accumulator = float_add_outputs[NUM_INTERMEDIATE_STAGES]
+    bool to_accumulator_valid = float_add_output_valids[NUM_INTERMEDIATE_STAGES]
+    float to_accumulator_direct = LatencyOffset#(OFFSET: FP32_ADD_LATENCY+1)(to_accumulator)
+    bool to_accumulator_valid_direct = LatencyOffset#(OFFSET: FP32_ADD_LATENCY+1)(to_accumulator_valid)
+
+    // The trick with these delays is that to get a non-last to_accumulator_valid, at least nextPow2#(V: FP32_ADD_LATENCY) cycles must have passed, giving any still in-progress is_last transfers time to clear out of the fp32_add. 
+    when is_last {
+        // Implicitly adds parallel registers, to slow down the data flow enough for all previous accumulations to have completed. 
+        accumulator_input = to_accumulator
+        accumulator_input_valid = to_accumulator_valid
+        total_result = accumulator_output
+        stored_accumulator = 0.0 // The add happens first, this just resets the stored accumulator such that the next sequence total is 0.0
+    } else {
+        accumulator_input = to_accumulator_direct
+        accumulator_input_valid = to_accumulator_valid_direct
+    }
+
+    // Connections
+    action acc : float v {
+        float_add_outputs[0] = v
+        float_add_output_valids[0] = true
+        action last : -> float total {
+            is_last = true
+            total = total_result
+        }
+    }
+
+    domain reset
+    action rst {
+        // By setting is_last, we implicitly clear all the registers along the way
+        is_last = true
+    }
+}

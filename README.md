@@ -9,7 +9,7 @@
 Wrappers for Versal devices are stored in [Versal/](Versal/). Use it by including [Versal/fp_wrappers.sus](Versal/fp_wrappers.sus) and [fp_custom.sus](fp_custom.sus) in your sus design, and adding all [`.xci` IP files](Versal/xci_files/) to your Vivado project. It's important to import the IP files as IP through `import_ip`, and not `add_files`. For example, the TCL command `import_ip [glob -type f xci_files/*.xci]` should work.
 
 ### UltraScalePlus (Made with Vivado 23.2)
-Wrappers for Versal devices are stored in [UltraScalePlus/](UltraScalePlus/). Use it by including [UltraScalePlus/fp_wrappers.sus](UltraScalePlus/fp_wrappers.sus) and [fp_custom.sus](fp_custom.sus) in your sus design, and adding all [`.xci` IP files](UltraScalePlus/xci_files/) to your Vivado project. It's important to import the IP files as IP through `import_ip`, and not `add_files`. For example, the TCL command `import_ip [glob -type f xci_files/*.xci]` should work.
+Wrappers for Versal devices are stored in [UltraScalePlus/](UltraScalePlus/). Use it by including [UltraScalePlus/fp_wrappers.sus](UltraScalePlus/fp_wrappers.sus), [UltraScalePlus/extensions.sus](UltraScalePlus/extensions.sus) and [fp_custom.sus](fp_custom.sus) in your sus design, and adding all [`.xci` IP files](UltraScalePlus/xci_files/) to your Vivado project. It's important to import the IP files as IP through `import_ip`, and not `add_files`. For example, the TCL command `import_ip [glob -type f xci_files/*.xci]` should work.
 
 #### Missing IPs for UltraScalePlus:
 - fp32_acc_ip
@@ -20,6 +20,8 @@ Wrappers for Versal devices are stored in [UltraScalePlus/](UltraScalePlus/). Us
 - fp64_acc_minus_ip
 
 These IPs are not wrapped, because these require a fixed-point internal accumulation register, and are therefore not generic for all floating point operations. You can still create these yourself in Vivado if you have a specific precision range in mind. 
+
+Partial reimplementations of them are provided in [UltraScalePlus/extensions.sus](UltraScalePlus/extensions.sus)
 
 ## Example
 ```sus
