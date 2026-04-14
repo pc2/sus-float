@@ -1,6 +1,6 @@
 
 extern module fp32_add_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input float s_axis_a_tdata'0
@@ -11,7 +11,7 @@ extern module fp32_add_ip {
 }
 
 module fp32_add {
-    domain aclk
+    clock aclk
     
     fp32_add_ip ip
     
@@ -29,7 +29,7 @@ module fp32_add {
 }
 
 extern module fp32_div_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input float s_axis_a_tdata'0
@@ -40,7 +40,7 @@ extern module fp32_div_ip {
 }
 
 module fp32_div {
-    domain aclk
+    clock aclk
     
     fp32_div_ip ip
     
@@ -58,7 +58,7 @@ module fp32_div {
 }
 
 extern module fp32_eq_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input float s_axis_a_tdata'0
@@ -69,7 +69,7 @@ extern module fp32_eq_ip {
 }
 
 module fp32_eq {
-    domain aclk
+    clock aclk
     
     fp32_eq_ip ip
     
@@ -87,7 +87,7 @@ module fp32_eq {
 }
 
 extern module fp32_exp_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input float s_axis_a_tdata'0
@@ -96,7 +96,7 @@ extern module fp32_exp_ip {
 }
 
 module fp32_exp {
-    domain aclk
+    clock aclk
     
     fp32_exp_ip ip
     
@@ -111,7 +111,7 @@ module fp32_exp {
 }
 
 extern module fp32_fma_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input float s_axis_a_tdata'0
@@ -124,7 +124,7 @@ extern module fp32_fma_ip {
 }
 
 module fp32_fma {
-    domain aclk
+    clock aclk
     
     fp32_fma_ip ip
     
@@ -145,7 +145,7 @@ module fp32_fma {
 }
 
 extern module fp32_fms_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input float s_axis_a_tdata'0
@@ -158,7 +158,7 @@ extern module fp32_fms_ip {
 }
 
 module fp32_fms {
-    domain aclk
+    clock aclk
     
     fp32_fms_ip ip
     
@@ -179,7 +179,7 @@ module fp32_fms {
 }
 
 extern module fp32_ge_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input float s_axis_a_tdata'0
@@ -190,7 +190,7 @@ extern module fp32_ge_ip {
 }
 
 module fp32_ge {
-    domain aclk
+    clock aclk
     
     fp32_ge_ip ip
     
@@ -208,7 +208,7 @@ module fp32_ge {
 }
 
 extern module fp32_gt_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input float s_axis_a_tdata'0
@@ -219,7 +219,7 @@ extern module fp32_gt_ip {
 }
 
 module fp32_gt {
-    domain aclk
+    clock aclk
     
     fp32_gt_ip ip
     
@@ -237,7 +237,7 @@ module fp32_gt {
 }
 
 extern module fp32_ln_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input float s_axis_a_tdata'0
@@ -246,7 +246,7 @@ extern module fp32_ln_ip {
 }
 
 module fp32_ln {
-    domain aclk
+    clock aclk
     
     fp32_ln_ip ip
     
@@ -261,7 +261,7 @@ module fp32_ln {
 }
 
 extern module fp32_mul_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input float s_axis_a_tdata'0
@@ -272,7 +272,7 @@ extern module fp32_mul_ip {
 }
 
 module fp32_mul {
-    domain aclk
+    clock aclk
     
     fp32_mul_ip ip
     
@@ -290,7 +290,7 @@ module fp32_mul {
 }
 
 extern module fp32_rcp_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input float s_axis_a_tdata'0
@@ -299,7 +299,7 @@ extern module fp32_rcp_ip {
 }
 
 module fp32_rcp {
-    domain aclk
+    clock aclk
     
     fp32_rcp_ip ip
     
@@ -314,7 +314,7 @@ module fp32_rcp {
 }
 
 extern module fp32_rsqrt_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input float s_axis_a_tdata'0
@@ -323,7 +323,7 @@ extern module fp32_rsqrt_ip {
 }
 
 module fp32_rsqrt {
-    domain aclk
+    clock aclk
     
     fp32_rsqrt_ip ip
     
@@ -338,7 +338,7 @@ module fp32_rsqrt {
 }
 
 extern module fp32_sqrt_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input float s_axis_a_tdata'0
@@ -347,7 +347,7 @@ extern module fp32_sqrt_ip {
 }
 
 module fp32_sqrt {
-    domain aclk
+    clock aclk
     
     fp32_sqrt_ip ip
     
@@ -362,7 +362,7 @@ module fp32_sqrt {
 }
 
 extern module fp32_sub_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input float s_axis_a_tdata'0
@@ -373,7 +373,7 @@ extern module fp32_sub_ip {
 }
 
 module fp32_sub {
-    domain aclk
+    clock aclk
     
     fp32_sub_ip ip
     
@@ -391,7 +391,7 @@ module fp32_sub {
 }
 
 extern module fp64_add_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input double s_axis_a_tdata'0
@@ -402,7 +402,7 @@ extern module fp64_add_ip {
 }
 
 module fp64_add {
-    domain aclk
+    clock aclk
     
     fp64_add_ip ip
     
@@ -420,7 +420,7 @@ module fp64_add {
 }
 
 extern module fp64_div_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input double s_axis_a_tdata'0
@@ -431,7 +431,7 @@ extern module fp64_div_ip {
 }
 
 module fp64_div {
-    domain aclk
+    clock aclk
     
     fp64_div_ip ip
     
@@ -449,7 +449,7 @@ module fp64_div {
 }
 
 extern module fp64_eq_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input double s_axis_a_tdata'0
@@ -460,7 +460,7 @@ extern module fp64_eq_ip {
 }
 
 module fp64_eq {
-    domain aclk
+    clock aclk
     
     fp64_eq_ip ip
     
@@ -478,7 +478,7 @@ module fp64_eq {
 }
 
 extern module fp64_exp_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input double s_axis_a_tdata'0
@@ -487,7 +487,7 @@ extern module fp64_exp_ip {
 }
 
 module fp64_exp {
-    domain aclk
+    clock aclk
     
     fp64_exp_ip ip
     
@@ -502,7 +502,7 @@ module fp64_exp {
 }
 
 extern module fp64_fma_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input double s_axis_a_tdata'0
@@ -515,7 +515,7 @@ extern module fp64_fma_ip {
 }
 
 module fp64_fma {
-    domain aclk
+    clock aclk
     
     fp64_fma_ip ip
     
@@ -536,7 +536,7 @@ module fp64_fma {
 }
 
 extern module fp64_fms_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input double s_axis_a_tdata'0
@@ -549,7 +549,7 @@ extern module fp64_fms_ip {
 }
 
 module fp64_fms {
-    domain aclk
+    clock aclk
     
     fp64_fms_ip ip
     
@@ -570,7 +570,7 @@ module fp64_fms {
 }
 
 extern module fp64_ge_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input double s_axis_a_tdata'0
@@ -581,7 +581,7 @@ extern module fp64_ge_ip {
 }
 
 module fp64_ge {
-    domain aclk
+    clock aclk
     
     fp64_ge_ip ip
     
@@ -599,7 +599,7 @@ module fp64_ge {
 }
 
 extern module fp64_gt_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input double s_axis_a_tdata'0
@@ -610,7 +610,7 @@ extern module fp64_gt_ip {
 }
 
 module fp64_gt {
-    domain aclk
+    clock aclk
     
     fp64_gt_ip ip
     
@@ -628,7 +628,7 @@ module fp64_gt {
 }
 
 extern module fp64_ln_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input double s_axis_a_tdata'0
@@ -637,7 +637,7 @@ extern module fp64_ln_ip {
 }
 
 module fp64_ln {
-    domain aclk
+    clock aclk
     
     fp64_ln_ip ip
     
@@ -652,7 +652,7 @@ module fp64_ln {
 }
 
 extern module fp64_mul_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input double s_axis_a_tdata'0
@@ -663,7 +663,7 @@ extern module fp64_mul_ip {
 }
 
 module fp64_mul {
-    domain aclk
+    clock aclk
     
     fp64_mul_ip ip
     
@@ -681,7 +681,7 @@ module fp64_mul {
 }
 
 extern module fp64_rcp_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input double s_axis_a_tdata'0
@@ -690,7 +690,7 @@ extern module fp64_rcp_ip {
 }
 
 module fp64_rcp {
-    domain aclk
+    clock aclk
     
     fp64_rcp_ip ip
     
@@ -705,7 +705,7 @@ module fp64_rcp {
 }
 
 extern module fp64_rsqrt_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input double s_axis_a_tdata'0
@@ -714,7 +714,7 @@ extern module fp64_rsqrt_ip {
 }
 
 module fp64_rsqrt {
-    domain aclk
+    clock aclk
     
     fp64_rsqrt_ip ip
     
@@ -729,7 +729,7 @@ module fp64_rsqrt {
 }
 
 extern module fp64_sqrt_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input double s_axis_a_tdata'0
@@ -738,7 +738,7 @@ extern module fp64_sqrt_ip {
 }
 
 module fp64_sqrt {
-    domain aclk
+    clock aclk
     
     fp64_sqrt_ip ip
     
@@ -753,7 +753,7 @@ module fp64_sqrt {
 }
 
 extern module fp64_sub_ip {
-    domain aclk
+    clock aclk
     
     input bool s_axis_a_tvalid'0
     input double s_axis_a_tdata'0
@@ -764,7 +764,7 @@ extern module fp64_sub_ip {
 }
 
 module fp64_sub {
-    domain aclk
+    clock aclk
     
     fp64_sub_ip ip
     

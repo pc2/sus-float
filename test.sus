@@ -1,5 +1,5 @@
 module fp_test {
-    domain clk
+    clock clk
     input float a
     input float b
     input float c

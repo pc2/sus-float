@@ -1,2 +1,4 @@
 **/sus_codegen.sv
 **/vivado*
+**/codegen.sv
+**/*.pb

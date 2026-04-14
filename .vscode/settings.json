@@ -1,0 +1,4 @@
+{
+    "sus_lsp.args": ["UltraScalePlus/fp_wrappers.sus", "UltraScalePlus/extensions.sus"],
+    "sus_lsp.env": {"RUST_BACKTRACE": "1"}
+}
