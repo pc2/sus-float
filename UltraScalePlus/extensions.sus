@@ -1,7 +1,8 @@
 
 /// 32-bit floating point accumulator. 
+///
+/// 
 module fp32_reduce_sum {
-    clock clk    
     gen int FP32_ADD_LATENCY = 11
     gen int NUM_INTERMEDIATE_STAGES = clog2#(V: FP32_ADD_LATENCY + 1)
 
@@ -39,13 +40,17 @@ module fp32_reduce_sum {
         accumulator.accumulate(add_outputs[NUM_INTERMEDIATE_STAGES])
     }
 
+    domain default
     // Connections
-    action acc : float v {
+    action accumulate : float v {
         add_outputs[0] = v
         add_output_valids[0] = true
-        action last : -> float total {
+        action last '0: float restart_value'0 -> float total {
             is_last = true
             total = accumulator.last()
+
+            stored_float_valids[0] = true
+            stored_floats[0] = restart_value
         }
     }
 
@@ -94,6 +99,114 @@ module fp32_reduce_sum_accumulator {
         accumulator_input_valid = to_accumulator_valid
         total_result = accumulator_output
         stored_accumulator = 0.0 // The add happens first, this just resets the stored accumulator such that the next sequence total is 0.0
+        is_last = true
+    } else {
+        accumulator_input = to_accumulator_direct
+        accumulator_input_valid = to_accumulator_valid_direct
+        is_last = false
+    }
+}
+
+
+
+
+module fp64_reduce_sum {
+    gen int FP64_ADD_LATENCY = 14
+    gen int NUM_INTERMEDIATE_STAGES = clog2#(V: FP64_ADD_LATENCY + 1)
+
+    split state double[NUM_INTERMEDIATE_STAGES] stored_doubles
+    state bool[NUM_INTERMEDIATE_STAGES] stored_double_valids
+    split double[NUM_INTERMEDIATE_STAGES+1] add_outputs
+    bool[NUM_INTERMEDIATE_STAGES+1] add_output_valids
+    for int I in 0..NUM_INTERMEDIATE_STAGES+1 {
+        add_output_valids[I] = false
+    }
+
+    // Step through the adders, incrementally adding up sequential values, and slowing the stream down enough so it's slow enough for being added up linearly. 
+    bool is_last = false
+    for int I in 0..NUM_INTERMEDIATE_STAGES {
+        when add_output_valids[I] {
+            when stored_double_valids[I] | is_last {
+                add_outputs[I+1] = fp64_add(add_outputs[I], stored_doubles[I])
+                add_output_valids[I+1] = true
+                stored_double_valids[I] = false
+                stored_doubles[I] = 0.0d
+            } else {
+                add_output_valids[I+1] = false
+                stored_double_valids[I] = !is_last
+                stored_doubles[I] = add_outputs[I]
+            }
+        }
+    }
+    when is_last {
+        add_output_valids = RepeatGen#(T: type bool, V: true, SIZE: NUM_INTERMEDIATE_STAGES+1)
+    }
+
+    fp64_reduce_sum_accumulator accumulator
+
+    when add_output_valids[NUM_INTERMEDIATE_STAGES] {
+        accumulator.accumulate(add_outputs[NUM_INTERMEDIATE_STAGES])
+    }
+
+    domain default
+    // Connections
+    action accumulate : double v {
+        add_outputs[0] = v
+        add_output_valids[0] = true
+        action last '0: double restart_value'0 -> double total {
+            is_last = true
+            total = accumulator.last()
+
+            stored_double_valids[0] = true
+            stored_doubles[0] = restart_value
+        }
+    }
+
+    domain reset
+    action rst {
+        // By setting is_last, we implicitly clear all the registers along the way
+        is_last = true
+    }
+}
+
+module fp64_reduce_sum_accumulator {
+    gen int FP64_ADD_LATENCY = 14
+
+    // The slow accumulator. 
+    state double stored_accumulator
+    double accumulator_input
+    bool accumulator_input_valid
+    double accumulator_output
+    double accumulator_output_offset = LatencyOffset#(OFFSET: -FP64_ADD_LATENCY)(accumulator_output)
+    bool is_last
+    bool accumulator_should_store = LatencyOffset#(OFFSET: -FP64_ADD_LATENCY)(accumulator_input_valid & !is_last)
+    when accumulator_input_valid {
+        accumulator_output = fp64_add(stored_accumulator, accumulator_input)
+    }
+    when accumulator_should_store  {
+        stored_accumulator = accumulator_output_offset
+    }
+
+    double to_accumulator
+    bool to_accumulator_valid
+    /// Before a non-last accumulate invocation, there must have been at least 15 cycles of no invocation
+    /// accumulate() calls accompanied by a last() invocation have no constraints. 
+    action accumulate'0 : double to_accumulate'0 {
+        to_accumulator = to_accumulate
+        to_accumulator_valid = true
+    } else {
+        to_accumulator_valid = false
+    }
+    double to_accumulator_direct = LatencyOffset#(OFFSET: FP64_ADD_LATENCY)(to_accumulator)
+    bool to_accumulator_valid_direct = LatencyOffset#(OFFSET: FP64_ADD_LATENCY)(to_accumulator_valid)
+
+    // The trick with these delays is that to get a non-last to_accumulator_valid, at least nextPow2#(V: fp64_ADD_LATENCY) cycles must have passed, giving any still in-progress is_last transfers time to clear out of the fp64_add. 
+    action last'0: -> double total_result {
+        // Implicitly adds parallel registers, to slow down the data flow enough for all previous accumulations to have completed. 
+        accumulator_input = to_accumulator
+        accumulator_input_valid = to_accumulator_valid
+        total_result = accumulator_output
+        stored_accumulator = 0.0d // The add happens first, this just resets the stored accumulator such that the next sequence total is 0.0
         is_last = true
     } else {
         accumulator_input = to_accumulator_direct
