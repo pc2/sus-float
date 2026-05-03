@@ -15,4 +15,4 @@ set_property top fp32_reduce_sum_tb [get_filesets sim_1]
 # set_property top_lib xil_defaultlib [get_filesets sim_1]
 
 launch_simulation
-launch_vivado
+start_gui

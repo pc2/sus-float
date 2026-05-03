@@ -29,6 +29,85 @@ module fp32_abs {
     }
 }
 
+module fp32_to_fp64 {
+    interface fp32_to_fp64 : float v -> double o
+
+    bool[32] v_bits = ToBits(v)
+
+    int exp32 = BitsToUInt(v_bits[23:31])
+    int frac32 = BitsToUInt(v_bits[0:23])
+
+    bool[64] o_bits
+
+    // Exponent conversion
+    bool is_zero = exp32 == 0 & frac32 == 0
+    bool is_inf_nan = exp32 == 255
+
+    int exp64
+    when is_zero {
+        exp64 = 0
+    } else when is_inf_nan {
+        exp64 = 2047
+    } else {
+        exp64 = exp32 + (1023 - 127)
+    }
+
+    // Mantissa (zero-extend)
+    int frac64 = BitwiseIntConcat#(LOWER_BITS: 52 - 23)(frac32, 0)
+
+    o_bits[0:52] = UIntToBits(frac64)
+    o_bits[52:63] = UIntToBits(exp64)
+
+    // Sign
+    o_bits[63] = v_bits[31]
+
+    o = FromBits(o_bits)
+}
+
+module fp64_to_fp32 {
+    interface fp64_to_fp32 : double v -> float o
+    bool[64] v_bits = ToBits(v)
+
+    int exp64 = BitsToUInt(v_bits[52:63])
+    int frac64 = BitsToUInt(v_bits[0:52])
+
+    bool[32] o_bits
+
+    // Detect special cases
+    bool is_zero = exp64 == 0 & frac64 == 0
+    bool is_inf_nan = exp64 == 2047
+
+    int exp32
+
+    when is_zero {
+        exp32 = 0
+    } else when is_inf_nan {
+        exp32 = 255
+    } else {
+        // Bias conversion
+        int exp_unbiased = exp64 + (127 - 1023)
+
+        when exp_unbiased <= 0 {
+            // Underflow → zero (no subnormal handling here)
+            exp32 = 0
+        } else when exp_unbiased >= 255 {
+            // Overflow → infinity
+            exp32 = 255
+        } else {
+            exp32 = IntNarrow#(FROM: 0, TO: 255)(exp_unbiased)
+        }
+    }
+
+    // Mantissa (truncate)
+    o_bits[0:23] = v_bits[52-23:52]
+    o_bits[23:31] = UIntToBits(exp32)
+
+    // Sign
+    o_bits[31] = v_bits[63]
+
+    o = FromBits(o_bits)
+}
+
 module fp64_abs {
     interface fp64_abs : double v -> double o {
         bool[64] v_bits = ToBits(v)
