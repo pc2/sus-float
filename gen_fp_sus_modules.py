@@ -162,7 +162,7 @@ module {xci_name[:-3]} {{
 
         for port in self.get("ports").keys():
             if port == "aclk":
-                sus_module_tmpl = sus_module_tmpl.replace("__ACLK", "domain aclk")
+                sus_module_tmpl = sus_module_tmpl.replace("__ACLK", "clock aclk")
             elif port == "aresetn":
                 sus_module_tmpl = sus_module_tmpl.replace("__ARESETN_PROP", "ip.aresetn = aresetn")
                 sus_module_tmpl = sus_module_tmpl.replace("__ARESETN", "input bool aresetn'0\n\n    domain data")
