@@ -1,0 +1,42 @@
+
+module fp32_tree_add#(int WIDTH) {
+    interface fp32_tree_add : float[WIDTH] values'0 -> float total
+
+	if WIDTH == 0 {
+		// Have to explicitly give zero a latency count.
+		// Otherwise total's latency can't be determined.
+		float zero'0 = 0.0
+		total = zero
+	} else if WIDTH == 1 {
+		total = values[0]
+	} else {
+        // Recurse
+		float left_total = fp32_tree_add(values[:WIDTH / 2])
+		float right_total = fp32_tree_add(values[WIDTH / 2:])
+
+		// Can add pipelining registers here too.
+		// Latency Counting will figure it out.
+		total = fp32_add(left_total, right_total)
+	}
+}
+
+module fp64_tree_add#(int WIDTH) {
+    interface fp64_tree_add : double[WIDTH] values'0 -> double total
+
+	if WIDTH == 0 {
+		// Have to explicitly give zero a latency count.
+		// Otherwise total's latency can't be determined.
+		double zero'0 = 0.0d
+		total = zero
+	} else if WIDTH == 1 {
+		total = values[0]
+	} else {
+        // Recurse
+		double left_total = fp64_tree_add(values[:WIDTH / 2])
+		double right_total = fp64_tree_add(values[WIDTH / 2:])
+
+		// Can add pipelining registers here too.
+		// Latency Counting will figure it out.
+		total = fp64_add(left_total, right_total)
+	}
+}
