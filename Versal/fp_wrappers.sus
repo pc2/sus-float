@@ -13,12 +13,8 @@ extern module fp32_acc_ip {
 }
 
 module fp32_acc {
-    clock aclk
-    input bool aresetn'0
-
-    domain data
     fp32_acc_ip ip
-    ip.aresetn = aresetn
+    domain data
     action fp32_acc : float a, bool last -> float res {
         ip.s_axis_a_tvalid = true
         ip.s_axis_a_tdata = a
@@ -28,6 +24,12 @@ module fp32_acc {
         bool _1 = ip.m_axis_result_tlast // Tie off
     } else {
         ip.s_axis_a_tvalid = false
+    }
+    
+    domain reset
+    ip.aresetn = true
+    action rst {
+        ip.aresetn = false
     }
 }
 
@@ -45,12 +47,8 @@ extern module fp32_acc_minus_ip {
 }
 
 module fp32_acc_minus {
-    clock aclk
-    input bool aresetn'0
-
-    domain data
     fp32_acc_minus_ip ip
-    ip.aresetn = aresetn
+    domain data
     action fp32_acc_minus : float a, bool last -> float res {
         ip.s_axis_a_tvalid = true
         ip.s_axis_a_tdata = a
@@ -60,6 +58,12 @@ module fp32_acc_minus {
         bool _1 = ip.m_axis_result_tlast // Tie off
     } else {
         ip.s_axis_a_tvalid = false
+    }
+    
+    domain reset
+    ip.aresetn = true
+    action rst {
+        ip.aresetn = false
     }
 }
 
@@ -340,12 +344,8 @@ extern module fp32_mac_ip {
 }
 
 module fp32_mac {
-    clock aclk
-    input bool aresetn'0
-
-    domain data
     fp32_mac_ip ip
-    ip.aresetn = aresetn
+    domain data
     action fp32_mac : float a, float b, bool last -> float res {
         ip.s_axis_a_tvalid = true
         ip.s_axis_a_tdata = a
@@ -358,6 +358,12 @@ module fp32_mac {
     } else {
         ip.s_axis_a_tvalid = false
         ip.s_axis_b_tvalid = false
+    }
+    
+    domain reset
+    ip.aresetn = true
+    action rst {
+        ip.aresetn = false
     }
 }
 
@@ -377,12 +383,8 @@ extern module fp32_msc_ip {
 }
 
 module fp32_msc {
-    clock aclk
-    input bool aresetn'0
-
-    domain data
     fp32_msc_ip ip
-    ip.aresetn = aresetn
+    domain data
     action fp32_msc : float a, float b, bool last -> float res {
         ip.s_axis_a_tvalid = true
         ip.s_axis_a_tdata = a
@@ -395,6 +397,12 @@ module fp32_msc {
     } else {
         ip.s_axis_a_tvalid = false
         ip.s_axis_b_tvalid = false
+    }
+    
+    domain reset
+    ip.aresetn = true
+    action rst {
+        ip.aresetn = false
     }
 }
 
@@ -542,12 +550,8 @@ extern module fp64_acc_ip {
 }
 
 module fp64_acc {
-    clock aclk
-    input bool aresetn'0
-
-    domain data
     fp64_acc_ip ip
-    ip.aresetn = aresetn
+    domain data
     action fp64_acc : double a, bool last -> double res {
         ip.s_axis_a_tvalid = true
         ip.s_axis_a_tdata = a
@@ -557,6 +561,12 @@ module fp64_acc {
         bool _1 = ip.m_axis_result_tlast // Tie off
     } else {
         ip.s_axis_a_tvalid = false
+    }
+    
+    domain reset
+    ip.aresetn = true
+    action rst {
+        ip.aresetn = false
     }
 }
 
@@ -574,12 +584,8 @@ extern module fp64_acc_minus_ip {
 }
 
 module fp64_acc_minus {
-    clock aclk
-    input bool aresetn'0
-
-    domain data
     fp64_acc_minus_ip ip
-    ip.aresetn = aresetn
+    domain data
     action fp64_acc_minus : double a, bool last -> double res {
         ip.s_axis_a_tvalid = true
         ip.s_axis_a_tdata = a
@@ -589,6 +595,12 @@ module fp64_acc_minus {
         bool _1 = ip.m_axis_result_tlast // Tie off
     } else {
         ip.s_axis_a_tvalid = false
+    }
+    
+    domain reset
+    ip.aresetn = true
+    action rst {
+        ip.aresetn = false
     }
 }
 
