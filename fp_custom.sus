@@ -3,7 +3,7 @@ module fp32_neg {
     interface fp32_neg : float v -> float o {
         bool[32] v_bits = ToBits(v)
         bool[32] o_bits
-        o_bits[0:31] = v_bits[0:31]
+        o_bits[0..31] = v_bits[0..31]
         o_bits[31] = !v_bits[31]
         o = FromBits(o_bits)
     }
@@ -13,7 +13,7 @@ module fp64_neg {
     interface fp64_neg : double v -> double o {
         bool[64] v_bits = ToBits(v)
         bool[64] o_bits
-        o_bits[0:63] = v_bits[0:63]
+        o_bits[0..63] = v_bits[0..63]
         o_bits[63] = !v_bits[63]
         o = FromBits(o_bits)
     }
@@ -23,7 +23,7 @@ module fp32_abs {
     interface fp32_abs : float v -> float o {
         bool[32] v_bits = ToBits(v)
         bool[32] o_bits
-        o_bits[0:31] = v_bits[0:31]
+        o_bits[0..31] = v_bits[0..31]
         o_bits[31] = false
         o = FromBits(o_bits)
     }
@@ -34,8 +34,8 @@ module fp32_to_fp64 {
 
     bool[32] v_bits = ToBits(v)
 
-    int exp32 = BitsToUInt(v_bits[23:31])
-    int frac32 = BitsToUInt(v_bits[0:23])
+    int exp32 = BitsToUInt(v_bits[23..31])
+    int frac32 = BitsToUInt(v_bits[0..23])
 
     bool[64] o_bits
 
@@ -55,8 +55,8 @@ module fp32_to_fp64 {
     // Mantissa (zero-extend)
     int frac64 = BitwiseIntConcat#(LOWER_BITS: 52 - 23)(frac32, 0)
 
-    o_bits[0:52] = UIntToBits(frac64)
-    o_bits[52:63] = UIntToBits(exp64)
+    o_bits[0..52] = UIntToBits(frac64)
+    o_bits[52..63] = UIntToBits(exp64)
 
     // Sign
     o_bits[63] = v_bits[31]
@@ -68,8 +68,8 @@ module fp64_to_fp32 {
     interface fp64_to_fp32 : double v -> float o
     bool[64] v_bits = ToBits(v)
 
-    int exp64 = BitsToUInt(v_bits[52:63])
-    int frac64 = BitsToUInt(v_bits[0:52])
+    int exp64 = BitsToUInt(v_bits[52..63])
+    int frac64 = BitsToUInt(v_bits[0..52])
 
     bool[32] o_bits
 
@@ -99,8 +99,8 @@ module fp64_to_fp32 {
     }
 
     // Mantissa (truncate)
-    o_bits[0:23] = v_bits[52-23:52]
-    o_bits[23:31] = UIntToBits(exp32)
+    o_bits[0..23] = v_bits[52-23..52]
+    o_bits[23..31] = UIntToBits(exp32)
 
     // Sign
     o_bits[31] = v_bits[63]
@@ -112,7 +112,7 @@ module fp64_abs {
     interface fp64_abs : double v -> double o {
         bool[64] v_bits = ToBits(v)
         bool[64] o_bits
-        o_bits[0:63] = v_bits[0:63]
+        o_bits[0..63] = v_bits[0..63]
         o_bits[63] = false
         o = FromBits(o_bits)
     }
@@ -123,8 +123,8 @@ module fp_mul_pow2_bitwise#(int MANTISSA_BITS, int EXPONENT_BITS, int FROM, int 
     gen bool[MANTISSA_BITS] ZEROS = RepeatGen#(T: type bool, SIZE: MANTISSA_BITS, V: false)
     interface fp_mul_pow2_bitwise : bool[1+MANTISSA_BITS+EXPONENT_BITS] v_bits, int#(FROM, TO) power -> bool[1+MANTISSA_BITS+EXPONENT_BITS] o_bits
     
-    int exponent = BitsToUInt(v_bits[MANTISSA_BITS+:EXPONENT_BITS])
-    bool[MANTISSA_BITS] mantissa = v_bits[0:MANTISSA_BITS]
+    int exponent = BitsToUInt(v_bits[MANTISSA_BITS+..EXPONENT_BITS])
+    bool[MANTISSA_BITS] mantissa = v_bits[0..MANTISSA_BITS]
 
     int new_exp
     bool[MANTISSA_BITS] new_mantissa
@@ -147,8 +147,8 @@ module fp_mul_pow2_bitwise#(int MANTISSA_BITS, int EXPONENT_BITS, int FROM, int 
             new_mantissa = mantissa
         }
     }
-    o_bits[0:MANTISSA_BITS] = new_mantissa
-    o_bits[MANTISSA_BITS+:EXPONENT_BITS] = UIntToBits(new_exp)
+    o_bits[0..MANTISSA_BITS] = new_mantissa
+    o_bits[MANTISSA_BITS+..EXPONENT_BITS] = UIntToBits(new_exp)
     o_bits[MANTISSA_BITS + EXPONENT_BITS] = v_bits[MANTISSA_BITS + EXPONENT_BITS]
 }
 /// Cheaply implement v * 2^power by adjusting floating point exponents. 

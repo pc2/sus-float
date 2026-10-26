@@ -11,8 +11,8 @@ module fp32_tree_add#(int WIDTH) {
 		total = values[0]
 	} else {
         // Recurse
-		float left_total = fp32_tree_add(values[:WIDTH / 2])
-		float right_total = fp32_tree_add(values[WIDTH / 2:])
+		float left_total = fp32_tree_add(values[..WIDTH / 2])
+		float right_total = fp32_tree_add(values[WIDTH / 2..])
 
 		// Can add pipelining registers here too.
 		// Latency Counting will figure it out.
@@ -32,8 +32,8 @@ module fp64_tree_add#(int WIDTH) {
 		total = values[0]
 	} else {
         // Recurse
-		double left_total = fp64_tree_add(values[:WIDTH / 2])
-		double right_total = fp64_tree_add(values[WIDTH / 2:])
+		double left_total = fp64_tree_add(values[..WIDTH / 2])
+		double right_total = fp64_tree_add(values[WIDTH / 2..])
 
 		// Can add pipelining registers here too.
 		// Latency Counting will figure it out.
