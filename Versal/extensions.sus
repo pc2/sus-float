@@ -69,14 +69,13 @@ module fp32_reduce_sum_accumulator {
     float accumulator_input
     bool accumulator_input_valid
     float accumulator_output
-    float accumulator_output_offset = LatencyOffset#(OFFSET: -FP32_ADD_LATENCY)(accumulator_output)
     bool is_last
-    bool accumulator_should_store = LatencyOffset#(OFFSET: -FP32_ADD_LATENCY)(accumulator_input_valid & !is_last)
     when accumulator_input_valid {
         accumulator_output = fp32_add(stored_accumulator, accumulator_input)
     }
-    when accumulator_should_store  {
-        stored_accumulator = accumulator_output_offset
+    when accumulator_input_valid & !is_last {
+        // Store the result once it comes out of the adder, FP32_ADD_LATENCY cycles later
+        next(FP32_ADD_LATENCY) stored_accumulator = accumulator_output
     }
 
     float to_accumulator
@@ -89,8 +88,8 @@ module fp32_reduce_sum_accumulator {
     } else {
         to_accumulator_valid = false
     }
-    float to_accumulator_direct = LatencyOffset#(OFFSET: FP32_ADD_LATENCY)(to_accumulator)
-    bool to_accumulator_valid_direct = LatencyOffset#(OFFSET: FP32_ADD_LATENCY)(to_accumulator_valid)
+    next(-FP32_ADD_LATENCY) float to_accumulator_direct = to_accumulator
+    next(-FP32_ADD_LATENCY) bool to_accumulator_valid_direct = to_accumulator_valid
 
     // The trick with these delays is that to get a non-last to_accumulator_valid, at least nextPow2#(V: FP32_ADD_LATENCY) cycles must have passed, giving any still in-progress is_last transfers time to clear out of the fp32_add. 
     action last'0: -> float total_result {
@@ -177,14 +176,13 @@ module fp64_reduce_sum_accumulator {
     double accumulator_input
     bool accumulator_input_valid
     double accumulator_output
-    double accumulator_output_offset = LatencyOffset#(OFFSET: -FP64_ADD_LATENCY)(accumulator_output)
     bool is_last
-    bool accumulator_should_store = LatencyOffset#(OFFSET: -FP64_ADD_LATENCY)(accumulator_input_valid & !is_last)
     when accumulator_input_valid {
         accumulator_output = fp64_add(stored_accumulator, accumulator_input)
     }
-    when accumulator_should_store  {
-        stored_accumulator = accumulator_output_offset
+    when accumulator_input_valid & !is_last {
+        // Store the result once it comes out of the adder, FP64_ADD_LATENCY cycles later
+        next(FP64_ADD_LATENCY) stored_accumulator = accumulator_output
     }
 
     double to_accumulator
@@ -197,8 +195,8 @@ module fp64_reduce_sum_accumulator {
     } else {
         to_accumulator_valid = false
     }
-    double to_accumulator_direct = LatencyOffset#(OFFSET: FP64_ADD_LATENCY)(to_accumulator)
-    bool to_accumulator_valid_direct = LatencyOffset#(OFFSET: FP64_ADD_LATENCY)(to_accumulator_valid)
+    next(-FP64_ADD_LATENCY) double to_accumulator_direct = to_accumulator
+    next(-FP64_ADD_LATENCY) bool to_accumulator_valid_direct = to_accumulator_valid
 
     // The trick with these delays is that to get a non-last to_accumulator_valid, at least nextPow2#(V: fp64_ADD_LATENCY) cycles must have passed, giving any still in-progress is_last transfers time to clear out of the fp64_add. 
     action last'0: -> double total_result {
