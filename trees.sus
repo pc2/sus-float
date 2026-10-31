@@ -1,7 +1,5 @@
 
-module fp32_tree_add#(int WIDTH) {
-    interface fp32_tree_add : float[WIDTH] values'0 -> float total
-
+module fp32_tree_add#(int WIDTH) : float[WIDTH] values'0 -> float total {
 	if WIDTH == 0 {
 		// Have to explicitly give zero a latency count.
 		// Otherwise total's latency can't be determined.
@@ -20,9 +18,7 @@ module fp32_tree_add#(int WIDTH) {
 	}
 }
 
-module fp64_tree_add#(int WIDTH) {
-    interface fp64_tree_add : double[WIDTH] values'0 -> double total
-
+module fp64_tree_add#(int WIDTH) : double[WIDTH] values'0 -> double total {
 	if WIDTH == 0 {
 		// Have to explicitly give zero a latency count.
 		// Otherwise total's latency can't be determined.
